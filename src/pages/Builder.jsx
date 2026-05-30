@@ -397,17 +397,20 @@ export default function Builder() {
                         userSelect: 'none',
                       }}
                     >
-                      {/* Icon */}
+                      {/* Icon box */}
                       <span style={{
-                        fontSize: 26, lineHeight: 1, flexShrink: 0,
-                        marginTop: 1,
-                        filter: sel ? 'none' : 'grayscale(20%)',
+                        width: 42, height: 42, borderRadius: 10, flexShrink: 0,
+                        background: sel ? 'var(--brand-100)' : 'var(--bg)',
+                        border: `1px solid ${sel ? 'var(--brand-100)' : 'var(--line-strong)'}`,
+                        color: sel ? 'var(--brand)' : 'var(--ink-3)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center',
+                        transition: '.14s',
                       }}>
-                        {lob.icon}
+                        <Icon name={id} size={21} sw={1.6} />
                       </span>
 
                       {/* Text */}
-                      <div className="col grow" style={{ minWidth: 0, gap: 3 }}>
+                      <div className="col grow" style={{ minWidth: 0, gap: 3, paddingTop: 2 }}>
                         <span style={{
                           fontWeight: 600, fontSize: 14.5,
                           color: sel ? 'var(--brand-ink)' : 'var(--ink)',
