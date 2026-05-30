@@ -9,6 +9,10 @@ import { marketConditions } from '../../data/marketConditions'
 import { signals } from '../../data/signals'
 import { getCountryData, getStatsForLobAndCountry } from '../../data/locationData'
 import {
+  getTravelAirlineData, getCyberSectorData, getWCSectorData,
+  getCropCommodityData, getMarineRouteData, getHealthChronicData,
+} from '../../data/countryChartData'
+import {
   motorData, travelData, cyberData, propertyData,
   cropData, marineData, workersCompData, healthData,
   getMotorFuelData, getPropertyPerilData,
@@ -150,11 +154,11 @@ function motorCharts(country = 'us') {
   ]
 }
 
-function travelCharts() {
-  const jf = travelData.jetFuelVsAirfare
-  const al = travelData.advisoryLevels
-  const ot = travelData.flightOnTime
-  const pv = travelData.passengerVolume
+function travelCharts(country = 'us') {
+  const jf      = travelData.jetFuelVsAirfare
+  const al      = travelData.advisoryLevels
+  const pv      = travelData.passengerVolume
+  const airline = getTravelAirlineData(country)
   return [
     {
       title: 'Jet Fuel vs Average Airfare',
@@ -196,10 +200,10 @@ function travelCharts() {
     },
     {
       title: 'Flight On-Time Rate by Airline',
-      subtitle: 'Current snapshot — reference line 80%',
+      subtitle: airline.subtitle,
       node: (
         <UWBarChart
-          data={ot.airlines.map((x, i) => ({ x, rate: ot.onTimeRate[i] }))}
+          data={airline.airlines.map((x, i) => ({ x, rate: airline.onTime[i] }))}
           xKey="x"
           bars={[{ key: 'rate', name: 'On-Time %', color: 'brand' }]}
           layout="vertical"
@@ -223,10 +227,10 @@ function travelCharts() {
   ]
 }
 
-function cyberCharts() {
-  const sf = cyberData.sectorFrequency
-  const bc = cyberData.breachCostTrend
-  const av = cyberData.attackVectors
+function cyberCharts(country = 'us') {
+  const sf      = getCyberSectorData(country)
+  const bc      = cyberData.breachCostTrend
+  const av      = cyberData.attackVectors
   const ransomAnnual = [
     { x: '2019', n: 156 }, { x: '2020', n: 395 }, { x: '2021', n: 862 },
     { x: '2022', n: 1748 }, { x: '2023', n: 2468 }, { x: '2024', n: 2792 }, { x: '2025', n: 2847 },
@@ -234,7 +238,7 @@ function cyberCharts() {
   return [
     {
       title: 'Ransomware Incidents 2019–2025',
-      subtitle: 'Annual peak — exponential growth, 29× in 6 years',
+      subtitle: 'Annual global total — exponential growth, 29× in 6 years',
       node: (
         <UWLineChart
           data={ransomAnnual} xKey="x"
@@ -244,11 +248,11 @@ function cyberCharts() {
       ),
     },
     {
-      title: 'Attack Frequency by Industry',
-      subtitle: 'Total incidents 2024 — healthcare most targeted',
+      title: 'Attack Frequency by Industry Sector',
+      subtitle: sf.subtitle,
       node: (
         <UWBarChart
-          data={sf.sectors.map((x, i) => ({ x, n: sf.incidents2024[i] }))}
+          data={sf.sectors.map((x, i) => ({ x, n: sf.incidents[i] }))}
           xKey="x"
           bars={[{ key: 'n', name: 'Incidents', color: 'brand' }]}
           layout="vertical"
@@ -346,15 +350,15 @@ function propertyCharts(country = 'us') {
   ]
 }
 
-function cropCharts() {
-  const dc = cropData.droughtCoverage
-  const cp = cropData.commodityPrices
-  const ir = cropData.indemnityRatio
-  const pv = cropData.precipVsYield
+function cropCharts(country = 'us') {
+  const dc  = cropData.droughtCoverage
+  const ir  = cropData.indemnityRatio
+  const pv  = cropData.precipVsYield
+  const cmd = getCropCommodityData(country)
   return [
     {
-      title: 'US Drought Coverage 2023–2026',
-      subtitle: '% of contiguous US in drought — Q3 pressure building',
+      title: 'Drought / Weather Stress Coverage',
+      subtitle: '% area in drought or severe weather stress — 2023–2026',
       node: (
         <UWAreaChart
           data={dc.months.map((x, i) => ({ x, pct: dc.droughtPct[i] }))}
@@ -366,16 +370,12 @@ function cropCharts() {
     },
     {
       title: 'Commodity Prices 2020–2025',
-      subtitle: 'Annual avg $/bu — Ukraine war spike visible 2022',
+      subtitle: cmd.subtitle,
       node: (
         <UWLineChart
-          data={cp.years.map((x, i) => ({ x, corn: cp.corn[i], wheat: cp.wheat[i], soy: cp.soy[i] }))}
+          data={cmd.data}
           xKey="x"
-          lines={[
-            { key: 'corn',  name: 'Corn $/bu',  color: 'warn' },
-            { key: 'wheat', name: 'Wheat $/bu', color: 'brand' },
-            { key: 'soy',   name: 'Soy $/bu',   color: 'down' },
-          ]}
+          lines={cmd.lines}
           height={H}
         />
       ),
@@ -412,11 +412,11 @@ function cropCharts() {
   ]
 }
 
-function marineCharts() {
-  const rs = marineData.redSeaTraffic
-  const cr = marineData.containerRates
-  const pc = marineData.portCongestion
-  const pr = marineData.piracyByRegion
+function marineCharts(country = 'us') {
+  const rs    = marineData.redSeaTraffic
+  const cr    = marineData.containerRates
+  const pc    = marineData.portCongestion
+  const route = getMarineRouteData(country)
   return [
     {
       title: 'Red Sea Traffic vs Normal',
@@ -455,11 +455,11 @@ function marineCharts() {
       ),
     },
     {
-      title: 'Piracy Incidents by Region 2024',
-      subtitle: 'Gulf of Guinea highest — Indian Ocean elevated',
+      title: 'Piracy & Attack Incidents by Route 2024',
+      subtitle: route.subtitle,
       node: (
         <UWBarChart
-          data={pr.regions.map((x, i) => ({ x, n: pr.incidents2024[i] }))}
+          data={route.routes.map((x, i) => ({ x, n: route.incidents[i] }))}
           xKey="x"
           bars={[{ key: 'n', name: 'Incidents', color: 'brand' }]}
           layout="vertical"
@@ -470,11 +470,11 @@ function marineCharts() {
   ]
 }
 
-function workerscompCharts() {
-  const mc  = workersCompData.medCpiVsSeverity
-  const es  = workersCompData.employmentBySector
-  const fvg = workersCompData.freqVsGdp
-  const rtw = workersCompData.rtwByInjury
+function workerscompCharts(country = 'us') {
+  const mc     = workersCompData.medCpiVsSeverity
+  const fvg    = workersCompData.freqVsGdp
+  const rtw    = workersCompData.rtwByInjury
+  const sector = getWCSectorData(country)
   return [
     {
       title: 'Medical CPI vs Claim Severity',
@@ -493,23 +493,12 @@ function workerscompCharts() {
     },
     {
       title: 'Employment by High-Risk Sector',
-      subtitle: 'Millions employed — quarterly data, 24 months',
+      subtitle: sector.subtitle,
       node: (
         <UWStackedBarChart
-          data={es.months.map((x, i) => ({
-            x,
-            Construction:  es.construction[i],
-            Manufacturing: es.manufacturing[i],
-            Logistics:     es.logistics[i],
-            Healthcare:    es.healthcare[i],
-          }))}
+          data={sector.data}
           xKey="x"
-          bars={[
-            { key: 'Construction',  name: 'Construction',  color: 'up' },
-            { key: 'Manufacturing', name: 'Manufacturing', color: 'warn' },
-            { key: 'Logistics',     name: 'Logistics',     color: 'brand' },
-            { key: 'Healthcare',    name: 'Healthcare',    color: 'down' },
-          ]}
+          bars={sector.bars}
           height={H}
         />
       ),
@@ -547,11 +536,11 @@ function workerscompCharts() {
   ]
 }
 
-function healthCharts() {
-  const g1 = healthData.glp1Prescriptions
-  const cd = healthData.chronicDisease
-  const di = healthData.drugCostInflation
-  const mh = healthData.groupHealthMlr
+function healthCharts(country = 'us') {
+  const g1      = healthData.glp1Prescriptions
+  const di      = healthData.drugCostInflation
+  const mh      = healthData.groupHealthMlr
+  const chronic = getHealthChronicData(country)
   return [
     {
       title: 'GLP-1 Prescription Volume 2019–2025',
@@ -566,24 +555,13 @@ function healthCharts() {
       ),
     },
     {
-      title: 'Chronic Disease Prevalence 2010–2024',
-      subtitle: '% of US adults — mental health rising fastest',
+      title: 'Chronic Disease Prevalence 2019–2024',
+      subtitle: chronic.subtitle,
       node: (
         <UWLineChart
-          data={cd.years.map((x, i) => ({
-            x,
-            diabetes:     cd.diabetes[i],
-            hypertension: cd.hypertension[i],
-            obesity:      cd.obesity[i],
-            mental:       cd.mentalHealth[i],
-          }))}
+          data={chronic.data}
           xKey="x"
-          lines={[
-            { key: 'diabetes',     name: 'Diabetes %',     color: 'brand' },
-            { key: 'hypertension', name: 'Hypertension %', color: 'warn' },
-            { key: 'obesity',      name: 'Obesity %',      color: 'up' },
-            { key: 'mental',       name: 'Mental Health %', color: '#7C3AED', dashed: true },
-          ]}
+          lines={chronic.lines}
           height={H}
         />
       ),
@@ -627,7 +605,6 @@ const LOB_CHART_FNS = {
   property: propertyCharts, crop: cropCharts, marine: marineCharts,
   workerscomp: workerscompCharts, health: healthCharts,
 }
-const COUNTRY_AWARE_LOBS = new Set(['motor', 'property'])
 
 /* ============================================================
    LOBTAB — main export
@@ -641,10 +618,8 @@ export default function LobTab({ lob, country, role }) {
     [lob, country, defaultStats]
   )
   const insights  = lobInsights[lob]  || []
-  const charts    = useMemo(
-    () => COUNTRY_AWARE_LOBS.has(lob)
-      ? LOB_CHART_FNS[lob]?.(country) || []
-      : LOB_CHART_FNS[lob]?.() || [],
+  const charts = useMemo(
+    () => LOB_CHART_FNS[lob]?.(country) || [],
     [lob, country]
   )
   const countryData = getCountryData(country)
