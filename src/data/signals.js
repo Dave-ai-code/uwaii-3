@@ -390,6 +390,403 @@ export const signals = [
       watchFor: "Russian counter-measures affecting shipping lanes. EU shipping sanction alignment. Baltic Dry Index as proxy for disruption level.",
       action: "REVIEW"
     }
+  },
+
+  // ── NEW ARTICLES (21–40) ──────────────────────────────────────────────────
+
+  {
+    id: 21,
+    headline: "UK EV Mandate Accelerates Fleet Transition — Insurers Face Repair Cost Uncertainty",
+    source: "Financial Times",
+    time: "4 hours ago",
+    priority: "MEDIUM",
+    lobs: ["motor"],
+    regions: ["Europe", "United Kingdom"],
+    summary: "The UK's Zero Emission Vehicle mandate requires 80% of new car sales to be electric by 2030. Insurers report EV repair costs averaging 25–30% above equivalent ICE vehicles due to battery assessment complexity.",
+    commentary: {
+      whatHappened: "UK government confirmed ZEV mandate targets will not be relaxed despite industry lobbying. EV share of new car sales hit 23% in Q1 2026, accelerating fleet transition.",
+      whyItMatters: "EVs have structurally higher repair costs — battery inspection after any impact is mandatory, and replacement batteries can cost £15,000–£30,000. As EV fleet share grows, average severity rises.",
+      impacts: [
+        { lob: "Motor", type: "severity", direction: "up", detail: "UK motor severity elevated +25–30% on EV claims vs ICE. As fleet composition shifts, portfolio average severity will rise. Rate adequacy requires EV-mix adjustment." },
+        { lob: "Motor", type: "demand", direction: "watch", detail: "Some drivers reporting EV insurance premium sticker shock — potential adverse selection risk if high-risk drivers avoid EVs and stay in ICE fleet." }
+      ],
+      watchFor: "Thatcham Research EV repair time data. ABI EV claims cost benchmarking. Any government battery repair subsidy announcement.",
+      action: "REVIEW"
+    }
+  },
+  {
+    id: 22,
+    headline: "Severe Flooding Hits Bavaria and Baden-Württemberg — Insured Losses Estimated €3.8B",
+    source: "Munich Re",
+    time: "6 hours ago",
+    priority: "HIGH",
+    lobs: ["property", "motor"],
+    regions: ["Europe", "Germany"],
+    summary: "Three days of extreme rainfall caused catastrophic flooding across southern Germany. Munich Re's preliminary loss estimate stands at €3.8B insured, with total economic losses potentially exceeding €8B.",
+    commentary: {
+      whatHappened: "A slow-moving low pressure system brought 3x normal monthly rainfall in 72 hours to Bavaria and Baden-Württemberg. The Danube, Isar, and Inn rivers all exceeded 100-year flood levels.",
+      whyItMatters: "This is the second major German flood event in 4 years (after Ahr Valley 2021). German property flood coverage penetration has risen but remains below 50% in affected areas, creating a protection gap debate.",
+      impacts: [
+        { lob: "Property", type: "frequency", direction: "up", detail: "German property books — particularly in Bavaria — facing material flood losses. Commercial property in Munich's business district most exposed. Reinstatement cost inflation adds 15% to reconstruction costs." },
+        { lob: "Motor", type: "frequency", direction: "up", detail: "Vehicle flood write-offs significant. German motor books in affected postcodes will see frequency spike. Total loss ratio on affected vehicles expected above 85%." }
+      ],
+      watchFor: "GDV (German Insurance Association) official loss estimate. EU Solidarity Fund application. German government flood defense spending announcement.",
+      action: "ACT"
+    }
+  },
+  {
+    id: 23,
+    headline: "North Korea's Lazarus Group Targets South Korean and Japanese Financial Institutions",
+    source: "Mandiant / Google TAG",
+    time: "8 hours ago",
+    priority: "HIGH",
+    lobs: ["cyber"],
+    regions: ["Asia Pacific"],
+    summary: "Google's Threat Analysis Group and Mandiant jointly attributed a wave of attacks on South Korean banks and Japanese securities firms to North Korea's Lazarus Group. Three confirmed breaches, $340M in crypto stolen.",
+    commentary: {
+      whatHappened: "Lazarus Group used a sophisticated supply chain attack via a compromised Korean financial software vendor to gain access to 3 major financial institutions. $340M in cryptocurrency assets were stolen.",
+      whyItMatters: "Nation-state attacks on financial services are growing in APAC. These attacks combine data exfiltration with financial theft, creating dual cyber and crime exposures. Korean and Japanese cyber books most exposed.",
+      impacts: [
+        { lob: "Cyber", type: "severity", direction: "up", detail: "Financial theft component adds a new loss dimension beyond traditional ransomware. APAC financial services cyber accounts need nation-state peril review." },
+        { lob: "Cyber", type: "frequency", direction: "up", detail: "Supply chain attack vector means breach notifications expected at downstream customers of compromised software vendor." }
+      ],
+      watchFor: "APAC financial regulator (MAS, FSA) guidance on incident reporting. Additional vendor notifications. Insurance coverage disputes over nation-state attribution clauses.",
+      action: "REVIEW"
+    }
+  },
+  {
+    id: 24,
+    headline: "Bureau of Meteorology Upgrades La Niña Watch to Advisory — Queensland Flood Risk Immediate",
+    source: "Bureau of Meteorology",
+    time: "10 hours ago",
+    priority: "HIGH",
+    lobs: ["property", "crop"],
+    regions: ["Asia Pacific", "Australia"],
+    summary: "BoM upgraded its ENSO status from Watch to Advisory, signalling a 70% probability of La Niña conditions. Queensland catchments already near capacity after above-average autumn rainfall.",
+    commentary: {
+      whatHappened: "Pacific SSTs have crossed the La Niña threshold. Upstream catchments in Queensland are at 85–95% capacity. The Bureau expects active monsoon conditions from November onwards.",
+      whyItMatters: "The 2021–22 La Niña caused AUD $6.4B in insured losses across two seasons. With catchments already near capacity, even moderate rainfall events could cause significant flooding.",
+      impacts: [
+        { lob: "Property", type: "frequency", direction: "up", detail: "Queensland residential and commercial flood exposure elevated. Brisbane, Rockhampton, and Townsville are key accumulation postcodes. ICA flood model scenarios need La Niña adjustment." },
+        { lob: "Crop", type: "frequency", direction: "up", detail: "Queensland sugar cane, cotton, and grain crops exposed. Excess rainfall during harvest causes quality deterioration triggering revenue protection policies." }
+      ],
+      watchFor: "BoM upgrading to full La Niña Declaration. Fitzroy River basin soil moisture weekly reports. Burdekin dam spillway operations.",
+      action: "ACT"
+    }
+  },
+  {
+    id: 25,
+    headline: "Houthi Drone Swarm Strikes Three Tankers in Gulf of Aden — Largest Single Attack Yet",
+    source: "Lloyd's List",
+    time: "1 hour ago",
+    priority: "HIGH",
+    lobs: ["marine", "motor", "travel"],
+    regions: ["Middle East"],
+    summary: "A coordinated Houthi drone attack struck three VLCC tankers simultaneously in the Gulf of Aden, the largest single maritime attack since the conflict began. One vessel took on water; crew evacuated.",
+    commentary: {
+      whatHappened: "Three Very Large Crude Carriers were struck by drone swarms in a coordinated attack approximately 60 nautical miles south of Aden. One vessel suffered hull breach; crew of 28 evacuated by Royal Navy vessel.",
+      whyItMatters: "This marks a significant escalation in Houthi attack capability — simultaneous multi-vessel attack. War risk premiums will spike. VLCC availability and oil supply chain disruption expected.",
+      impacts: [
+        { lob: "Marine", type: "severity", direction: "up", detail: "War risk premiums on Gulf of Aden transits expected to increase 40–60bps immediately. VLCC hull values under review. Cargo schedule B war exclusion triggers being assessed." },
+        { lob: "Motor", type: "cost", direction: "up", detail: "VLCC strikes will tighten crude supply, adding $4–7/barrel to oil within 48–72 hours. Motor fuel price increase to follow in 2–3 weeks." },
+        { lob: "Travel", type: "cost", direction: "up", detail: "Jet fuel premium widening as crude rises. Middle East route flight diversions increasing fuel burn and ticket costs." }
+      ],
+      watchFor: "US/UK naval response. Iranian government statement. Oil price move above $90/barrel. Lloyd's JWC area extension review.",
+      action: "ACT"
+    }
+  },
+  {
+    id: 26,
+    headline: "USDA WASDE Cuts Corn Yield Estimate 9% — Largest Downward Revision Since 2012 Drought",
+    source: "USDA",
+    time: "2 hours ago",
+    priority: "HIGH",
+    lobs: ["crop"],
+    regions: ["United States", "Americas"],
+    summary: "USDA's monthly World Agricultural Supply and Demand Estimates report cut US corn yield projections from 181 to 165 bushels/acre, the largest single-month downward revision in 13 years. Corn prices jumped 8% on the release.",
+    commentary: {
+      whatHappened: "Persistent drought through June and July damaged corn during the critical pollination window. USDA's field surveys found pollination failure rates of 18–24% across Iowa and Illinois — the two largest corn-producing states.",
+      whyItMatters: "A 9% yield reduction on the full US corn crop represents approximately 1.4 billion bushels of production loss. At current prices, insured crop revenue losses are estimated at $12–16B industry-wide.",
+      impacts: [
+        { lob: "Crop", type: "severity", direction: "up", detail: "Multi-peril crop insurance (MPCI) indemnity ratio likely to exceed 1.4 in affected counties — worst since 2012. Q3 loss activity will be significant. Reserve adequacy needs review." },
+        { lob: "Crop", type: "cost", direction: "up", detail: "Corn at $6.20/bu (up 8% today) raises insured values for revenue protection policies. Commodity price inflation amplifies indemnity amounts." }
+      ],
+      watchFor: "August WASDE for confirmation or further revision. Weekly crop condition ratings. Weather forecasts for remaining growing season — late-planted soy is next at risk.",
+      action: "ACT"
+    }
+  },
+  {
+    id: 27,
+    headline: "NHS England Waiting List Reaches Record 8.1 Million — Private Medical Demand Surges",
+    source: "NHS England / The Guardian",
+    time: "1 day ago",
+    priority: "MEDIUM",
+    lobs: ["health"],
+    regions: ["Europe", "United Kingdom"],
+    summary: "NHS England's elective waiting list reached 8.1 million patients in April 2026, driving a 34% year-on-year increase in private medical insurance (PMI) claims as patients seek faster treatment.",
+    commentary: {
+      whatHappened: "NHS performance targets on elective waiting times are being missed by the widest margin since records began. The average wait for elective surgery is now 27 weeks. PMI providers report record new business enquiries.",
+      whyItMatters: "NHS pressure directly drives UK PMI utilisation. When NHS waits are long, insured patients use their PMI faster and more frequently. UK health/life books face elevated claims frequency.",
+      impacts: [
+        { lob: "Health", type: "frequency", direction: "up", detail: "UK PMI claim frequency 34% above prior year. Orthopaedic, ophthalmology, and cardiology procedures most in demand. Mental health waiting lists also driving increased PMI utilisation." }
+      ],
+      watchFor: "NHS quarterly performance data. BUPA, AXA Health, Vitality claims data leakage. UK health insurer rate filing changes.",
+      action: "REVIEW"
+    }
+  },
+  {
+    id: 28,
+    headline: "EU NIS2 Directive Now Enforceable — 160,000 Companies Face Mandatory Cyber Incident Reporting",
+    source: "ENISA",
+    time: "1 day ago",
+    priority: "MEDIUM",
+    lobs: ["cyber"],
+    regions: ["Europe"],
+    summary: "The EU's NIS2 Directive became enforceable across all member states. It expands mandatory cybersecurity requirements and incident reporting to 160,000 entities across 18 critical sectors, with fines up to €10M or 2% of global revenue.",
+    commentary: {
+      whatHappened: "EU member states completed national transposition of NIS2. Entities in sectors including energy, transport, healthcare, and digital infrastructure must now meet baseline security controls and report significant incidents within 24 hours.",
+      whyItMatters: "NIS2 dramatically widens the pool of entities with mandatory cyber requirements in Europe. This is both a frequency driver (more incidents must be reported) and a demand driver (more companies need cyber coverage).",
+      impacts: [
+        { lob: "Cyber", type: "frequency", direction: "up", detail: "Mandatory reporting requirements will surface previously unreported incidents in European portfolios. Expect notification frequency to increase 40–60% in affected sectors." },
+        { lob: "Cyber", type: "demand", direction: "up", detail: "160,000 newly in-scope entities represent significant new demand for cyber insurance in Europe. Mid-market segment particularly underinsured." }
+      ],
+      watchFor: "National regulator (BSI in Germany, ANSSI in France, ICO in UK) enforcement actions. First major NIS2 fine as deterrent signal. Broker submissions from newly in-scope entities.",
+      action: "MONITOR"
+    }
+  },
+  {
+    id: 29,
+    headline: "Japan Noto Peninsula Struck by M6.8 Aftershock — Second Major Event This Year",
+    source: "Japan Meteorological Agency",
+    time: "2 days ago",
+    priority: "MEDIUM",
+    lobs: ["property"],
+    regions: ["Asia Pacific", "Japan"],
+    summary: "A M6.8 earthquake struck the Noto Peninsula in Japan, the same region hit by a M7.6 event in January 2024. Structural engineers warn cumulative damage makes buildings highly vulnerable to further aftershocks.",
+    commentary: {
+      whatHappened: "The earthquake struck at 14km depth — shallow enough to cause significant surface damage. The Noto Peninsula region has not fully recovered from the January 2024 M7.6 event. Buildings already damaged are at heightened collapse risk.",
+      whyItMatters: "Cumulative earthquake damage significantly elevates loss severity versus a single event — already-weakened structures fail at lower ground motion intensities. Japanese property books and earthquake CAT models need re-evaluation for this region.",
+      impacts: [
+        { lob: "Property", type: "severity", direction: "up", detail: "Cumulative damage elevation means total losses on Noto Peninsula may significantly exceed single-event AIR/RMS model outputs. Re-run PML for Chubu region." }
+      ],
+      watchFor: "JMA aftershock probability maps. NHK damage reports. Japanese government reconstruction status. Any change in seismic zone classification for insurance rating.",
+      action: "REVIEW"
+    }
+  },
+  {
+    id: 30,
+    headline: "Singapore MAS Tightens Cyber Insurance Underwriting Guidelines for Financial Institutions",
+    source: "Monetary Authority of Singapore",
+    time: "2 days ago",
+    priority: "MEDIUM",
+    lobs: ["cyber"],
+    regions: ["Asia Pacific", "Singapore"],
+    summary: "The MAS issued revised guidelines requiring Singapore-regulated financial institutions to demonstrate minimum cybersecurity controls before cyber insurance will be recognised as a valid risk mitigation tool under capital rules.",
+    commentary: {
+      whatHappened: "MAS Notice MAS Notice 644 amendment requires banks and insurers to pass a cybersecurity control framework assessment before cyber insurance can be counted as capital mitigation. Effective from Q4 2026.",
+      whyItMatters: "This creates both a quality filter on cyber insureds (only those with strong controls can qualify) and a significant demand driver — institutions need cyber coverage to meet capital requirements.",
+      impacts: [
+        { lob: "Cyber", type: "demand", direction: "up", detail: "Singapore financial institution cyber demand will grow as capital rule creates compliance necessity. Premium quality of insured base also improves." },
+        { lob: "Cyber", type: "frequency", direction: "down", detail: "Mandatory control improvements as a condition of coverage should reduce frequency for Singapore financial sector portfolio over 12–18 months." }
+      ],
+      watchFor: "MAS enforcement timeline. APRA (Australia) and HKMA (Hong Kong) analogous guidance — Singapore often leads regional regulatory direction.",
+      action: "MONITOR"
+    }
+  },
+  {
+    id: 31,
+    headline: "Saudi Arabia Fuel Subsidy Reform — Petrol Prices Rise 40% as Government Cuts Support",
+    source: "Arab News / Reuters",
+    time: "3 days ago",
+    priority: "MEDIUM",
+    lobs: ["motor"],
+    regions: ["Middle East"],
+    summary: "Saudi Arabia's government implemented the second phase of its fuel subsidy reform, raising petrol prices from SAR 0.90 to SAR 1.26/litre. This is the largest single increase since the 2016 reform.",
+    commentary: {
+      whatHappened: "Saudi Arabia raised domestic fuel prices as part of fiscal consolidation under Vision 2030. The 40% increase brings Saudi prices closer to market rates, though still well below European levels.",
+      whyItMatters: "Even at SAR 1.26/litre, Saudi fuel is very cheap by global standards. However, the step-change in price may cause short-term demand elasticity effects — fewer discretionary vehicle journeys — with a temporary frequency benefit.",
+      impacts: [
+        { lob: "Motor", type: "frequency", direction: "down", detail: "Short-term: GCC motor frequency may see 2–4% reduction in discretionary miles driven as price shock registers. Effect likely temporary (3–6 months) as consumers adjust." }
+      ],
+      watchFor: "Monthly KSA vehicle accident data from Ministry of Interior. Any political pressure to reverse the price increase. UAE and Kuwait following with their own subsidy reforms.",
+      action: "MONITOR"
+    }
+  },
+  {
+    id: 32,
+    headline: "Dubai Flash Flooding — First Major Urban Flood in UAE in a Decade",
+    source: "Gulf News / Reuters",
+    time: "3 days ago",
+    priority: "HIGH",
+    lobs: ["property", "motor"],
+    regions: ["Middle East"],
+    summary: "Unprecedented rainfall of 254mm in 24 hours — equivalent to 2 years of average rainfall — caused catastrophic flooding across Dubai and Sharjah. Insurance losses estimated at AED 2–4B, though UAE property flood coverage penetration is below 30%.",
+    commentary: {
+      whatHappened: "A slow-moving Mediterranean storm system produced exceptional rainfall over the UAE. Dubai International Airport was shut for 48 hours. Thousands of vehicles were written off. Basement apartment and commercial unit flooding was widespread.",
+      whyItMatters: "UAE property flood coverage is low — most policies exclude flooding. This event will drive demand for flood endorsements across GCC property portfolios and may trigger regulatory review of mandatory flood coverage.",
+      impacts: [
+        { lob: "Property", type: "frequency", direction: "up", detail: "UAE commercial and residential property losses are significant but coverage penetration limits insured losses. Demand for flood endorsements will increase substantially post-event." },
+        { lob: "Motor", type: "frequency", direction: "up", detail: "Vehicle flood write-offs across Dubai, Sharjah, and Al Ain are substantial. Comprehensive motor policies will see elevated total loss claims. Parts availability already stressed." }
+      ],
+      watchFor: "Dubai government infrastructure investment in drainage. Insurance regulatory response on mandatory flood coverage. Reinsurance treaty aggregation impact for Gulf CAT writers.",
+      action: "REVIEW"
+    }
+  },
+  {
+    id: 33,
+    headline: "UnitedHealth Change Healthcare Cyberattack — 40 Million Patient Records Exposed, Claims Processing Halted",
+    source: "Wall Street Journal",
+    time: "4 days ago",
+    priority: "HIGH",
+    lobs: ["cyber", "health"],
+    regions: ["United States"],
+    summary: "The Change Healthcare cyberattack (Blackcat/ALPHV ransomware) halted pharmacy and medical claims processing for 10+ days, affecting 40 million patients and costing UnitedHealth Group an estimated $872M in Q1 alone.",
+    commentary: {
+      whatHappened: "BlackCat ransomware encrypted Change Healthcare's claims processing systems — a subsidiary that handles ~40% of US healthcare transactions. The outage lasted 10+ days and the company ultimately paid a $22M ransom.",
+      whyItMatters: "This is the largest healthcare cyberattack in US history by financial impact. It demonstrates that healthcare IT infrastructure represents systemic cyber risk — a single attack can disrupt the entire US healthcare payment ecosystem.",
+      impacts: [
+        { lob: "Cyber", type: "severity", direction: "up", detail: "Business interruption component of this claim dwarfs ransomware payment — systemic infrastructure claims are the new severity risk. Review aggregation models for healthcare IT dependencies." },
+        { lob: "Health", type: "cost", direction: "up", detail: "Claims processing delays caused cash flow disruption for 70,000+ healthcare providers. Some smaller practices faced insolvency. Health insurers incurred manual processing costs." }
+      ],
+      watchFor: "HHS regulatory response. Congressional hearings on healthcare cybersecurity. Industry-wide healthcare IT dependency mapping. Second-order claims from providers who suffered losses.",
+      action: "ACT"
+    }
+  },
+  {
+    id: 34,
+    headline: "OSHA Launches Investigation Into Amazon Warehouse Injury Rate — 2x Industry Average",
+    source: "ProPublica / OSHA",
+    time: "4 days ago",
+    priority: "MEDIUM",
+    lobs: ["workerscomp"],
+    regions: ["United States"],
+    summary: "OSHA opened formal investigations into 14 Amazon fulfillment centres after a ProPublica analysis found Amazon's recordable injury rate is double the warehousing industry average, with musculoskeletal injuries comprising 68% of claims.",
+    commentary: {
+      whatHappened: "Amazon's 2025 injury data showed a recordable rate of 5.4 per 100 workers versus industry average of 2.7. OSHA investigations triggered at 14 highest-rate facilities across 8 states.",
+      whyItMatters: "Amazon is the largest single employer in US warehousing. OSHA findings could result in large citations, operational changes (slowing productivity quotas), and are a leading indicator of broader warehousing WC frequency trends.",
+      impacts: [
+        { lob: "Workers Comp", type: "frequency", direction: "up", detail: "Warehousing/logistics WC class showing elevated frequency. Amazon books (if written) require loss pick review. Broader e-commerce fulfilment class warrants re-rating analysis." }
+      ],
+      watchFor: "OSHA citation amounts. Amazon operational changes to rate/quota systems. Any OSHA rulemaking on ergonomics in warehouse settings (last attempted 2000).",
+      action: "REVIEW"
+    }
+  },
+  {
+    id: 35,
+    headline: "Australia EV Fleet Growing 60% YoY — Repair Shops Report Battery Assessment Bottleneck",
+    source: "Insurance Council of Australia",
+    time: "5 days ago",
+    priority: "LOW",
+    lobs: ["motor"],
+    regions: ["Asia Pacific", "Australia"],
+    summary: "EV sales in Australia hit 18% of new car sales in Q1 2026, with the fleet growing 60% year-on-year. The Insurance Council of Australia warns only 340 of 3,800 smash repairers are EV-certified.",
+    commentary: {
+      whatHappened: "Australia's EV adoption is accelerating following government incentives and Tesla Model 3/Y dominance. However, EV repair infrastructure has not kept pace — only 9% of repairers are certified for EV high-voltage systems.",
+      whyItMatters: "Repair bottlenecks lead to extended hire car periods, longer claim cycles, and higher total costs. Battery replacement decisions are being made by non-EV-certified repairers, creating additional liability exposure.",
+      impacts: [
+        { lob: "Motor", type: "severity", direction: "up", detail: "Australian EV motor claims showing 22% longer average repair cycle. Hire car component of claims is growing. As EV fleet share rises, portfolio severity will increase structurally." }
+      ],
+      watchFor: "ICA EV claims benchmarking data. Government investment in EV repair training. Tesla direct repair program expansion. Any regulatory action on EV battery disposal standards.",
+      action: "MONITOR"
+    }
+  },
+  {
+    id: 36,
+    headline: "WHO Issues Global Alert for Novel H5N1 Variant — Limited Human Transmission Detected",
+    source: "World Health Organisation",
+    time: "5 days ago",
+    priority: "HIGH",
+    lobs: ["travel", "health"],
+    regions: ["Global", "Asia Pacific"],
+    summary: "WHO issued a global alert after confirming limited human-to-human transmission of a novel H5N1 influenza variant in Vietnam and Indonesia. Three clusters of 4–6 cases have been identified.",
+    commentary: {
+      whatHappened: "A novel H5N1 variant with modified receptor binding has been detected in 3 separate clusters in Vietnam and Indonesia. WHO's emergency committee assessed the situation and recommended enhanced surveillance and border screening.",
+      whyItMatters: "H5N1 has historically had a 60% case fatality rate when it infects humans. Any sustained human transmission would trigger pandemic-level travel disruptions. This is a tail risk event but the watch period is critical.",
+      impacts: [
+        { lob: "Travel", type: "frequency", direction: "watch", detail: "If WHO raises alert to Phase 3 or higher, trip cancellation claims in APAC will spike significantly. Review pandemic exclusion language in travel products." },
+        { lob: "Health", type: "frequency", direction: "watch", detail: "Mortality and severe illness risk if pandemic develops. Life and health books with APAC concentration most exposed. Review pandemic reinsurance treaty coverage." }
+      ],
+      watchFor: "WHO Emergency Committee Phase declarations. Cluster sizes growing beyond 6 cases. Any evidence of sustained community transmission outside known clusters.",
+      action: "REVIEW"
+    }
+  },
+  {
+    id: 37,
+    headline: "East Coast Port Strike Averted — ILA and USMX Sign 3-Year Agreement",
+    source: "Journal of Commerce",
+    time: "6 days ago",
+    priority: "MEDIUM",
+    lobs: ["marine"],
+    regions: ["United States", "Americas"],
+    summary: "The International Longshoremen's Association and US Maritime Exchange signed a 3-year master contract, averting a strike that would have shut 36 US East and Gulf Coast ports. The deal includes 28% wage increases over 3 years.",
+    commentary: {
+      whatHappened: "Following 11th-hour negotiations, ILA and USMX reached agreement on wages and automation restrictions. The tentative agreement averts a strike that would have halted ~57% of US containerised imports.",
+      whyItMatters: "Port disruption risk is removed for 3 years. Container rates on US East Coast routes are expected to decline 8–12% over the next 60 days as shippers unwind pre-strike inventory builds.",
+      impacts: [
+        { lob: "Marine", type: "frequency", direction: "down", detail: "US East Coast port risk removed. Container rate normalisation expected. Cargo accumulation at ports during pre-strike build will clear over 4–6 weeks." }
+      ],
+      watchFor: "Ratification vote. West Coast ILWU contract (2027 expiry — next major port labour risk). Panama Canal water levels (separate disruption risk for Q3–Q4).",
+      action: "NONE"
+    }
+  },
+  {
+    id: 38,
+    headline: "India Monsoon Arrives 3 Weeks Late — Kharif Crop Planting 40% Below Normal Pace",
+    source: "India Meteorological Department",
+    time: "6 days ago",
+    priority: "HIGH",
+    lobs: ["crop"],
+    regions: ["Asia Pacific", "India"],
+    summary: "India's southwest monsoon arrived in Kerala 3 weeks behind schedule and has not progressed normally. Kharif crop planting (rice, soy, cotton) is 40% below normal seasonal pace across Maharashtra, Karnataka, and Madhya Pradesh.",
+    commentary: {
+      whatHappened: "A blocking high pressure system has stalled monsoon progression northward. As of late June, the monsoon has barely crossed southern India. Farmers in central and northern states have been unable to plant kharif crops.",
+      whyItMatters: "India is the world's second largest rice producer and the top producer of cotton. A failed kharif season would have global commodity price implications. Crop insurance policies written on Indian agriculture are directly exposed.",
+      impacts: [
+        { lob: "Crop", type: "frequency", direction: "up", detail: "Indian kharif crop books — rice, cotton, soy — facing material indemnity risk if monsoon deficit exceeds 15% for the season. Early-planted crops can be replanted; late arrivals affect yield by 25–40%." }
+      ],
+      watchFor: "IMD weekly monsoon progress updates. July cumulative rainfall vs normal. Government crop insurance scheme (PMFBY) portfolio exposure. Global rice and cotton price response.",
+      action: "REVIEW"
+    }
+  },
+  {
+    id: 39,
+    headline: "Germany Introduces Mandatory Flood Insurance — European First",
+    source: "Handelsblatt / Reuters",
+    time: "7 days ago",
+    priority: "HIGH",
+    lobs: ["property"],
+    regions: ["Europe", "Germany"],
+    summary: "The German Bundestag passed legislation making flood insurance mandatory for all homeowners by 2027. Germany becomes the first major European economy to mandate natural hazard coverage after years of post-flood political pressure.",
+    commentary: {
+      whatHappened: "Following the Ahr Valley floods (2021) and Bavaria floods (2025), the German government passed legislation requiring all homeowners to include Elementarschadenversicherung (natural hazard cover) in property policies by January 2027.",
+      whyItMatters: "Germany's mandatory flood insurance is a significant market change. Penetration rises from ~45% to near 100%, dramatically increasing premium volume but also risk accumulation on reinsurance books.",
+      impacts: [
+        { lob: "Property", type: "demand", direction: "up", detail: "German property premium volume expected to increase 18–22% as mandatory coverage closes the penetration gap. Reinsurance treaties for German property will need renegotiation." },
+        { lob: "Property", type: "severity", direction: "watch", detail: "Higher penetration means more claims per flood event, increasing aggregate industry losses. CAT model expected loss estimates for Germany need updating." }
+      ],
+      watchFor: "Implementation regulations and transition period details. GDV industry premium projections. Treaty reinsurance pricing response at Jan 2027 renewals.",
+      action: "REVIEW"
+    }
+  },
+  {
+    id: 40,
+    headline: "Panama Canal Extends Draft Restrictions — Water Levels at 40-Year Low for June",
+    source: "Panama Canal Authority",
+    time: "7 days ago",
+    priority: "MEDIUM",
+    lobs: ["marine"],
+    regions: ["Americas"],
+    summary: "The Panama Canal Authority extended vessel draft restrictions through Q3, limiting Neopanamax vessels to 44 feet versus the normal 50 feet. Gatun Lake water levels are at their lowest June level since 1983.",
+    commentary: {
+      whatHappened: "El Niño-related drought has driven Gatun Lake water levels to 40-year lows. The Canal Authority has reduced daily vessel transits from 36 to 24 and imposed draft restrictions that reduce cargo capacity per vessel by 20–25%.",
+      whyItMatters: "The Panama Canal handles ~5% of global trade and ~40% of US container imports. Draft restrictions mean shippers must either carry less cargo or divert via Suez — adding 10–14 days and significant fuel cost.",
+      impacts: [
+        { lob: "Marine", type: "cost", direction: "up", detail: "Cargo insured values per vessel declining due to light loading requirements. Container rates on US West Coast–East Coast routes rising as capacity tightens. Spoilage exposure on perishable cargo elevated on rerouted vessels." },
+        { lob: "Marine", type: "frequency", direction: "up", detail: "Vessel congestion at Panama anchorage — waiting time up to 12 days — increases anchor drag, collision, and grounding exposure at approaches." }
+      ],
+      watchFor: "Gatun Lake water level weekly data. ACP announcement extending restrictions beyond Q3. Any change in El Niño forecast affecting rainfall in Panama watershed.",
+      action: "MONITOR"
+    }
   }
 ]
 

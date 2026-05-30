@@ -483,3 +483,268 @@ export const healthData = {
     ],
   },
 }
+
+/* ============================================================
+   COUNTRY-SPECIFIC MOTOR CHART DATA
+   Fuel price series in local units, 24 months Jun 24 – May 26
+   ============================================================ */
+export const motorFuelByCountry = {
+  // United States — $/gallon
+  us: {
+    label: 'Fuel Price ($/gal)',
+    fuelPrice: [
+      3.52, 3.61, 3.48, 3.38, 3.22, 3.18,
+      3.24, 3.31, 3.27, 3.35, 3.40, 3.38,
+      3.55, 3.68, 3.71, 3.62, 3.44, 3.39,
+      3.48, 3.56, 3.52, 3.47, 3.42, 3.42,
+    ],
+    frequencyIndex: [
+      98.2, 100.4, 102.1, 101.8, 99.6, 97.4,
+      96.2, 97.8, 98.6, 99.1, 100.2, 101.4,
+      99.8, 101.2, 103.4, 104.1, 103.8, 102.6,
+      101.8, 102.4, 103.2, 104.6, 106.1, 108.4,
+    ],
+    annotation: '60-day lag: lower fuel → more miles → higher frequency',
+  },
+  // United Kingdom — pence per litre
+  gb: {
+    label: 'Fuel Price (p/litre)',
+    fuelPrice: [
+      152, 158, 155, 149, 144, 141,
+      143, 147, 145, 148, 151, 150,
+      156, 162, 165, 160, 152, 148,
+      151, 155, 153, 150, 148, 148,
+    ],
+    frequencyIndex: [
+      97.4, 99.2, 101.0, 100.6, 98.8, 96.8,
+      95.8, 97.2, 98.0, 98.6, 99.4, 100.8,
+      99.2, 100.4, 102.2, 102.8, 102.4, 101.4,
+      100.8, 101.4, 102.0, 103.2, 104.4, 103.8,
+    ],
+    annotation: '60-day lag — UK fuel duty freeze limits price volatility vs US',
+  },
+  // Germany — €/litre
+  de: {
+    label: 'Fuel Price (€/litre)',
+    fuelPrice: [
+      1.76, 1.82, 1.79, 1.74, 1.68, 1.65,
+      1.67, 1.70, 1.69, 1.71, 1.73, 1.72,
+      1.78, 1.85, 1.88, 1.83, 1.76, 1.72,
+      1.74, 1.78, 1.75, 1.73, 1.72, 1.72,
+    ],
+    frequencyIndex: [
+      96.8, 98.4, 100.2, 99.8, 98.0, 96.2,
+      95.2, 96.6, 97.4, 98.0, 98.8, 100.0,
+      98.6, 99.8, 101.4, 102.0, 101.6, 100.6,
+      100.0, 100.6, 101.2, 102.4, 103.4, 101.4,
+    ],
+    annotation: 'German Autobahn network — high-speed driving raises severity vs frequency',
+  },
+  // France — €/litre
+  fr: {
+    label: 'Fuel Price (€/litre)',
+    fuelPrice: [
+      1.88, 1.94, 1.91, 1.86, 1.80, 1.77,
+      1.79, 1.82, 1.81, 1.83, 1.85, 1.84,
+      1.90, 1.96, 1.99, 1.94, 1.88, 1.84,
+      1.86, 1.90, 1.87, 1.85, 1.84, 1.84,
+    ],
+    frequencyIndex: [
+      97.0, 98.6, 100.4, 100.0, 98.2, 96.4,
+      95.4, 96.8, 97.6, 98.2, 99.0, 100.2,
+      98.8, 100.0, 101.6, 102.2, 101.8, 100.8,
+      100.2, 100.8, 101.4, 102.6, 103.6, 102.4,
+    ],
+    annotation: 'French gilets jaunes sensitivity to fuel prices — political risk overlays economic',
+  },
+  // Australia — A¢/litre
+  au: {
+    label: 'Fuel Price (A¢/litre)',
+    fuelPrice: [
+      198, 208, 204, 196, 188, 184,
+      187, 192, 190, 194, 197, 196,
+      204, 214, 218, 210, 200, 195,
+      198, 204, 201, 199, 208, 208,
+    ],
+    frequencyIndex: [
+      97.6, 99.8, 101.6, 101.2, 99.4, 97.2,
+      96.0, 97.4, 98.2, 98.8, 99.6, 101.0,
+      99.4, 100.6, 102.8, 103.4, 103.0, 102.0,
+      101.4, 101.8, 102.6, 103.8, 105.2, 104.2,
+    ],
+    annotation: 'Australian fuel follows Singapore benchmark price — AUD weakness amplifies rises',
+  },
+  // Canada — C$/litre
+  ca: {
+    label: 'Fuel Price (C$/litre)',
+    fuelPrice: [
+      1.72, 1.78, 1.75, 1.69, 1.63, 1.60,
+      1.62, 1.65, 1.64, 1.66, 1.68, 1.68,
+      1.74, 1.80, 1.83, 1.77, 1.70, 1.66,
+      1.69, 1.73, 1.70, 1.68, 1.68, 1.68,
+    ],
+    frequencyIndex: [
+      97.8, 100.0, 101.8, 101.4, 99.6, 97.4,
+      96.2, 97.6, 98.4, 99.0, 99.8, 101.0,
+      99.6, 100.8, 102.6, 103.2, 102.8, 101.8,
+      101.2, 101.6, 102.4, 103.6, 104.8, 104.2,
+    ],
+    annotation: 'Canadian fuel includes federal carbon tax — adds C$0.15/litre to base price',
+  },
+  // Japan — ¥/litre
+  jp: {
+    label: 'Fuel Price (¥/litre)',
+    fuelPrice: [
+      162, 168, 165, 160, 155, 152,
+      154, 157, 156, 159, 162, 161,
+      166, 172, 175, 169, 163, 159,
+      162, 166, 164, 162, 168, 168,
+    ],
+    frequencyIndex: [
+      96.4, 97.8, 99.2, 98.8, 97.4, 95.8,
+      94.8, 96.0, 96.8, 97.4, 98.0, 99.2,
+      97.8, 98.8, 100.4, 100.8, 100.4, 99.6,
+      99.0, 99.4, 100.0, 100.8, 101.6, 100.8,
+    ],
+    annotation: 'Japan government fuel subsidy partially offsetting global price rises since 2022',
+  },
+  // UAE — AED/litre
+  ae: {
+    label: 'Fuel Price (AED/litre)',
+    fuelPrice: [
+      2.82, 2.98, 2.94, 2.84, 2.72, 2.68,
+      2.70, 2.76, 2.74, 2.78, 2.82, 2.80,
+      2.86, 2.95, 2.98, 2.89, 2.80, 2.75,
+      2.78, 2.84, 2.81, 2.79, 2.89, 2.89,
+    ],
+    frequencyIndex: [
+      99.2, 101.4, 103.2, 102.8, 101.0, 98.8,
+      97.6, 99.0, 99.8, 100.4, 101.2, 102.4,
+      100.8, 102.0, 104.2, 104.8, 104.4, 103.4,
+      102.8, 103.2, 104.0, 105.2, 106.6, 106.0,
+    ],
+    annotation: 'UAE fuel prices set monthly by government committee tracking Platts benchmarks',
+  },
+}
+
+/* Helper — returns country-specific fuel data, falling back to US */
+export function getMotorFuelData(countryCode) {
+  return motorFuelByCountry[countryCode] || motorFuelByCountry['us']
+}
+
+/* ============================================================
+   COUNTRY-SPECIFIC PROPERTY CHART DATA
+   Peril breakdown reflects each country's dominant CAT risks
+   ============================================================ */
+export const propertyPerilsByCountry = {
+  // United States — hurricane, wildfire, hail/wind dominant
+  us: {
+    label: 'US Insured CAT Losses by Peril ($B)',
+    years: ['2020','2021','2022','2023','2024'],
+    perils: {
+      hurricane: [18, 48, 52, 22, 38],
+      wildfire:  [14, 22, 18, 14, 18],
+      hailWind:  [32, 36, 38, 42, 46],
+      flood:     [10, 8,  12, 16, 14],
+      earthquake: [4, 3,  4,  6,  4],
+      other:     [4, 3,  8,  8,  7],
+    },
+    barKeys: [
+      { key: 'hurricane',  name: 'Hurricane',   color: 'up' },
+      { key: 'wildfire',   name: 'Wildfire',    color: 'warn' },
+      { key: 'hailWind',   name: 'Hail/Wind',   color: 'brand' },
+      { key: 'flood',      name: 'Flood',       color: 'down' },
+      { key: 'earthquake', name: 'Earthquake',  color: '#7C3AED' },
+      { key: 'other',      name: 'Other',       color: 'ink4' },
+    ],
+  },
+  // United Kingdom — flood, subsidence, wind/storm dominant
+  gb: {
+    label: 'UK Insured CAT Losses by Peril (£B)',
+    years: ['2020','2021','2022','2023','2024'],
+    perils: {
+      flood:      [2.8, 1.4, 1.2, 3.6, 2.2],
+      subsidence: [0.6, 0.4, 1.8, 0.8, 1.2],
+      windStorm:  [1.2, 0.8, 2.4, 1.4, 1.8],
+      escapeWater:[1.4, 1.6, 1.8, 1.8, 2.0],
+      fire:       [0.6, 0.6, 0.8, 0.8, 0.8],
+      other:      [0.4, 0.4, 0.6, 0.6, 0.6],
+    },
+    barKeys: [
+      { key: 'flood',       name: 'Flood',         color: 'brand' },
+      { key: 'subsidence',  name: 'Subsidence',     color: 'warn' },
+      { key: 'windStorm',   name: 'Wind/Storm',     color: 'up' },
+      { key: 'escapeWater', name: 'Escape of Water', color: 'down' },
+      { key: 'fire',        name: 'Fire',           color: '#C0362F' },
+      { key: 'other',       name: 'Other',          color: 'ink4' },
+    ],
+  },
+  // Germany — flood, wind/hail dominant; mandatory flood insurance from 2027
+  de: {
+    label: 'German Insured CAT Losses by Peril (€B)',
+    years: ['2020','2021','2022','2023','2024'],
+    perils: {
+      flood:      [1.8, 8.2, 1.2, 2.4, 4.6],
+      windStorm:  [2.4, 1.8, 3.2, 2.8, 2.2],
+      hail:       [1.6, 2.8, 4.2, 3.6, 3.2],
+      earthquake: [0.2, 0.2, 0.2, 0.2, 0.2],
+      fire:       [0.8, 0.8, 1.0, 0.8, 0.8],
+      other:      [0.4, 0.4, 0.6, 0.6, 0.6],
+    },
+    barKeys: [
+      { key: 'flood',      name: 'Flood',      color: 'brand' },
+      { key: 'windStorm',  name: 'Wind/Storm', color: 'up' },
+      { key: 'hail',       name: 'Hail',       color: 'warn' },
+      { key: 'earthquake', name: 'Earthquake', color: '#7C3AED' },
+      { key: 'fire',       name: 'Fire',       color: '#C0362F' },
+      { key: 'other',      name: 'Other',      color: 'ink4' },
+    ],
+  },
+  // Australia — cyclone, bushfire, flood dominant
+  au: {
+    label: 'Australian Insured CAT Losses by Peril (A$B)',
+    years: ['2020','2021','2022','2023','2024'],
+    perils: {
+      bushfire: [2.8, 0.8, 0.6, 1.2, 1.8],
+      flood:    [3.2, 5.8, 6.4, 3.8, 4.2],
+      cyclone:  [1.4, 2.2, 1.8, 2.4, 2.8],
+      hail:     [2.2, 1.8, 2.4, 2.8, 2.4],
+      storm:    [1.0, 1.2, 1.4, 1.6, 1.6],
+      other:    [0.4, 0.4, 0.6, 0.6, 0.6],
+    },
+    barKeys: [
+      { key: 'bushfire', name: 'Bushfire', color: 'warn' },
+      { key: 'flood',    name: 'Flood',    color: 'brand' },
+      { key: 'cyclone',  name: 'Cyclone',  color: 'up' },
+      { key: 'hail',     name: 'Hail',     color: 'down' },
+      { key: 'storm',    name: 'Storm',    color: '#7C3AED' },
+      { key: 'other',    name: 'Other',    color: 'ink4' },
+    ],
+  },
+  // Japan — earthquake, typhoon dominant
+  jp: {
+    label: 'Japan Insured CAT Losses by Peril (¥T)',
+    years: ['2020','2021','2022','2023','2024'],
+    perils: {
+      earthquake: [0.8, 0.4, 0.6, 1.8, 2.4],
+      typhoon:    [1.2, 2.4, 1.8, 2.2, 2.8],
+      flood:      [0.8, 1.2, 1.4, 1.0, 1.2],
+      windStorm:  [0.4, 0.6, 0.8, 0.8, 0.8],
+      fire:       [0.2, 0.2, 0.2, 0.2, 0.2],
+      other:      [0.2, 0.2, 0.2, 0.2, 0.4],
+    },
+    barKeys: [
+      { key: 'earthquake', name: 'Earthquake', color: 'up' },
+      { key: 'typhoon',    name: 'Typhoon',    color: 'brand' },
+      { key: 'flood',      name: 'Flood',      color: 'down' },
+      { key: 'windStorm',  name: 'Wind/Storm', color: 'warn' },
+      { key: 'fire',       name: 'Fire',       color: '#C0362F' },
+      { key: 'other',      name: 'Other',      color: 'ink4' },
+    ],
+  },
+}
+
+/* Helper — returns country-specific property peril data, falling back to US */
+export function getPropertyPerilData(countryCode) {
+  return propertyPerilsByCountry[countryCode] || propertyPerilsByCountry['us']
+}

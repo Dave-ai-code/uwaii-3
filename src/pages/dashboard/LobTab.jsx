@@ -11,6 +11,7 @@ import { getCountryData, getStatsForLobAndCountry } from '../../data/locationDat
 import {
   motorData, travelData, cyberData, propertyData,
   cropData, marineData, workersCompData, healthData,
+  getMotorFuelData, getPropertyPerilData,
 } from '../../data/chartData'
 
 const H = 190
@@ -79,20 +80,21 @@ function LobNews({ lobId }) {
    PER-LOB CHART DEFINITIONS
    ============================================================ */
 
-function motorCharts() {
-  const fv = motorData.fuelVsFrequency
+function motorCharts(country = 'us') {
+  const fuelData = getMotorFuelData(country)
+  const fv = { months: motorData.fuelVsFrequency.months, fuelPrice: fuelData.fuelPrice, frequencyIndex: fuelData.frequencyIndex }
   const uc = motorData.usedCarVsSeverity
   const mt = motorData.milesTraveled
   const cs = motorData.cpiVsSeverity
   return [
     {
       title: 'Fuel Price vs Claim Frequency',
-      subtitle: '60-day lag: lower fuel → more miles driven',
+      subtitle: fuelData.annotation,
       node: (
         <UWDualLineChart
           data={fv.months.map((x, i) => ({ x, fuel: fv.fuelPrice[i], freq: fv.frequencyIndex[i] }))}
           xKey="x"
-          leftLine={{ key: 'fuel', name: 'Fuel $/gal', color: 'warn' }}
+          leftLine={{ key: 'fuel', name: fuelData.label, color: 'warn' }}
           rightLine={{ key: 'freq', name: 'Freq Index', color: 'brand' }}
           height={H}
         />
@@ -280,11 +282,16 @@ function cyberCharts() {
   ]
 }
 
-function propertyCharts() {
-  const ca = propertyData.catLossesAnnual
-  const cc = propertyData.constructionCost
-  const cp = propertyData.catByPeril
-  const wf = propertyData.wildfireAcres
+function propertyCharts(country = 'us') {
+  const ca  = propertyData.catLossesAnnual
+  const cc  = propertyData.constructionCost
+  const wf  = propertyData.wildfireAcres
+  const cpd = getPropertyPerilData(country)
+  const perilData = cpd.years.map((x, i) => {
+    const row = { x }
+    Object.keys(cpd.perils).forEach(k => { row[k] = cpd.perils[k][i] })
+    return row
+  })
   return [
     {
       title: 'Annual Insured CAT Losses ($B)',
@@ -313,28 +320,13 @@ function propertyCharts() {
       ),
     },
     {
-      title: 'CAT Losses by Peril 2020–2024',
-      subtitle: 'Hail/wind growing — convective risk rising as % of total',
+      title: `CAT Losses by Peril 2020–2024`,
+      subtitle: cpd.label,
       node: (
         <UWStackedBarChart
-          data={cp.years.map((x, i) => ({
-            x,
-            hurricane:  cp.hurricane[i],
-            wildfire:   cp.wildfire[i],
-            hailWind:   cp.hailWind[i],
-            flood:      cp.flood[i],
-            earthquake: cp.earthquake[i],
-            other:      cp.other[i],
-          }))}
+          data={perilData}
           xKey="x"
-          bars={[
-            { key: 'hurricane',  name: 'Hurricane',  color: 'up' },
-            { key: 'wildfire',   name: 'Wildfire',   color: 'warn' },
-            { key: 'hailWind',   name: 'Hail/Wind',  color: 'brand' },
-            { key: 'flood',      name: 'Flood',      color: 'down' },
-            { key: 'earthquake', name: 'Earthquake', color: '#7C3AED' },
-            { key: 'other',      name: 'Other',      color: 'ink4' },
-          ]}
+          bars={cpd.barKeys}
           height={H}
         />
       ),
@@ -635,6 +627,7 @@ const LOB_CHART_FNS = {
   property: propertyCharts, crop: cropCharts, marine: marineCharts,
   workerscomp: workerscompCharts, health: healthCharts,
 }
+const COUNTRY_AWARE_LOBS = new Set(['motor', 'property'])
 
 /* ============================================================
    LOBTAB — main export
@@ -648,7 +641,12 @@ export default function LobTab({ lob, country, role }) {
     [lob, country, defaultStats]
   )
   const insights  = lobInsights[lob]  || []
-  const charts    = useMemo(() => LOB_CHART_FNS[lob]?.() || [], [lob])
+  const charts    = useMemo(
+    () => COUNTRY_AWARE_LOBS.has(lob)
+      ? LOB_CHART_FNS[lob]?.(country) || []
+      : LOB_CHART_FNS[lob]?.() || [],
+    [lob, country]
+  )
   const countryData = getCountryData(country)
 
   if (!lobConfig) return (
