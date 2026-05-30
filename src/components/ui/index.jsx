@@ -9,6 +9,7 @@ const ICONS = {
   report:      'M6 3h9l4 4v14H6zM14 3v5h5M9 13h6M9 16h6',
   search:      'M11 4a7 7 0 1 0 0 14 7 7 0 0 0 0-14zM20 20l-4-4',
   chevron:     'M9 6l6 6-6 6',
+  chevLeft:    'M15 18l-6-6 6-6',
   chevdown:    'M6 9l6 6 6-6',
   arrow:       'M5 12h14M13 6l6 6-6 6',
   ext:         'M14 5h5v5M19 5l-8 8M18 14v5H5V6h5',

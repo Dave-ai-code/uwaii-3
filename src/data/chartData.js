@@ -65,6 +65,22 @@ export const motorData = {
     annotation: 'Post-COVID used car spike drove severity; now normalizing but elevated',
   },
 
+  // Chart 5: EV Adoption vs Repair Cost Index (dual axis, annual)
+  evAdoptionVsRepair: {
+    years: ['2019','2020','2021','2022','2023','2024','2025'],
+    evSharePct: [2.1, 2.8, 4.6, 7.2, 10.4, 14.8, 19.2],
+    repairCostIdx: [100, 101, 104, 109, 118, 129, 138],
+    annotation: 'EV repairs cost 20–30% more — fleet share growing rapidly',
+  },
+
+  // Chart 6: NHTSA Safety Recalls (dual axis, annual)
+  nhtsaRecalls: {
+    years: ['2019','2020','2021','2022','2023','2024','2025'],
+    campaigns: [741, 698, 712, 758, 798, 821, 847],
+    vehiclesAffectedM: [28.4, 31.2, 29.8, 33.4, 36.8, 40.2, 42.1],
+    annotation: 'More EV software recalls emerging alongside traditional safety recalls',
+  },
+
   // Chart 3: Miles Traveled Seasonal Pattern (area, 24mo)
   milesTraveled: {
     months: MONTHS_24,
@@ -154,6 +170,21 @@ export const travelData = {
       95.6, 99.8, 104.4, 108.8, 112.6, 116.2,
     ],
   },
+
+  // Chart 5: Medical Evacuation Incidents by Region (bar)
+  medEvacByRegion: {
+    regions: ['Middle East','Africa','SE Asia','Americas','Pacific','Europe'],
+    incidentsPer10k: [4.2, 5.1, 3.8, 2.9, 1.8, 1.4],
+    avgCostK: [48, 39, 42, 31, 67, 22],
+  },
+
+  // Chart 6: Claims by Trip Type — 24mo (multi-line)
+  claimsByTripType: {
+    months: MONTHS_24,
+    leisure:   [72,74,78,71,68,62,65,68,72,75,77,80,81,83,86,82,79,74,77,80,83,86,88,90],
+    business:  [48,46,48,51,52,48,46,49,51,52,50,51,52,54,55,53,52,50,51,52,53,54,55,56],
+    adventure: [18,19,22,20,16,14,15,16,18,20,21,22,23,24,25,24,22,20,21,22,23,24,25,26],
+  },
 }
 
 /* ============================================================
@@ -212,6 +243,22 @@ export const cyberData = {
     vectors: ['Phishing','RDP Compromise','Software Vulnerability','Supply Chain','Insider','Other'],
     percentages: [36, 24, 19, 12, 6, 3],
   },
+
+  // Chart 5: Average Ransom Demand Trend 2019–2025 (line)
+  ransomDemandTrend: {
+    years: ['2019','2020','2021','2022','2023','2024','2025'],
+    avgDemandK: [84, 178, 322, 498, 621, 714, 847],
+    medianDemandK: [42, 84, 148, 198, 284, 326, 412],
+    annotation: 'Big-game hunting: attackers targeting larger organisations with higher demands',
+  },
+
+  // Chart 6: Mean Time to Detect & Contain (days) 2019–2025 (dual line)
+  dwellTime: {
+    years: ['2019','2020','2021','2022','2023','2024','2025'],
+    daysToDetect: [146, 132, 112, 98, 84, 71, 58],
+    daysToContain: [312, 287, 241, 198, 172, 148, 131],
+    annotation: 'Improving but still 58 days median before discovery — IR cost driver',
+  },
 }
 
 /* ============================================================
@@ -252,6 +299,21 @@ export const propertyData = {
   wildfireAcres: {
     years: ['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023','2024'],
     millionAcres: [3.4, 8.7, 9.1, 4.3, 3.6, 10.1, 5.5, 9.8, 8.8, 4.7, 10.1, 7.1, 7.6, 2.6, 8.4],
+  },
+
+  // Chart 5: Protection Gap — Insured vs Total Economic Losses $B (grouped bar)
+  protectionGap: {
+    years: ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024'],
+    totalEconB: [74, 92, 340, 165, 112, 210, 270, 298, 254, 280],
+    insuredB:   [38, 54, 144,  90,  60,  82, 120, 132, 108, 127],
+    annotation: 'Insured share only 40–50% — protection gap widening with climate risk',
+  },
+
+  // Chart 6: Reinsurance Rate Index 2017–2025 (line)
+  reinsRateIndex: {
+    years: ['2017','2018','2019','2020','2021','2022','2023','2024','2025'],
+    index: [100, 104, 108, 112, 128, 148, 172, 164, 158],
+    annotation: '2017–2023 hard market cycle driven by consecutive loss years',
   },
 }
 
@@ -300,6 +362,24 @@ export const cropData = {
     precipIndex: [94, 82, 74, 68, 62, 58, null],
     yieldDeviation: [0, -2, -4, -6, -9, -12, null],
     fiveYearAvgPrecip: [100, 100, 100, 100, 100, 100, 100],
+  },
+
+  // Chart 5: ENSO Index vs Yield Deviation (dual axis, annual)
+  ensoImpact: {
+    years: ['2010','2011','2012','2013','2014','2015','2016','2017','2018','2019','2020','2021','2022','2023','2024'],
+    ensoIndex: [0.8,-1.2,-0.2,0.4,0.2,1.5,-1.6,0.6,0.8,0.3,-1.8,-1.1,0.2,1.8,0.4],
+    yieldDeviation: [-2.1,4.2,-8.4,1.8,1.2,-3.4,6.8,-1.8,-2.4,-0.8,4.2,2.8,-6.2,-4.8,-1.2],
+    annotation: 'El Niño (positive) → drought risk; La Niña (negative) → flood risk',
+  },
+
+  // Chart 6: Fertilizer Price Index 2024–2026 (area, monthly)
+  fertilizerIndex: {
+    months: MONTHS_24,
+    index: [
+      128,126,123,121,119,117,116,115,114,115,116,117,
+      118,118,117,116,115,115,115,116,117,118,118,118,
+    ],
+    annotation: 'Post-Ukraine spike normalising — still 18% above 2020 levels',
   },
 }
 
@@ -371,6 +451,21 @@ export const marineData = {
     regions: ['Gulf of Guinea','Indian Ocean','Southeast Asia','Latin America','Mediterranean','Other'],
     incidents2024: [82, 64, 48, 38, 22, 18],
   },
+
+  // Chart 5: War Risk Premium Index (line, quarterly)
+  warRiskPremium: {
+    quarters: ['Q1 23','Q2 23','Q3 23','Q4 23','Q1 24','Q2 24','Q3 24','Q4 24','Q1 25','Q2 25'],
+    index: [100, 102, 104, 128, 162, 174, 181, 183, 185, 187],
+    annotation: 'Houthi attacks drove 87% jump in war risk premiums from Q4 2023',
+  },
+
+  // Chart 6: Vessel Total Loss & Average Hull Value (dual axis, annual)
+  vesselTotalLoss: {
+    years: ['2019','2020','2021','2022','2023','2024'],
+    incidents: [41, 49, 54, 58, 62, 68],
+    avgHullValueM: [12.4, 14.8, 16.2, 18.4, 22.1, 26.8],
+    annotation: 'Incidents rising + hull values rising = compounding severity pressure',
+  },
 }
 
 /* ============================================================
@@ -435,6 +530,22 @@ export const workersCompData = {
     injuryTypes: ['Back/Spine','Shoulder','Knee','Fracture','Strain','Laceration'],
     avgDays: [68, 61, 54, 44, 22, 12],
   },
+
+  // Chart 5: WC Litigation Rate by State — 2022 vs 2024 (grouped bar)
+  litigationByState: {
+    states: ['CA','FL','NY','IL','TX','PA','OH','GA','NJ','NC'],
+    pct2022: [28.4, 22.1, 24.8, 18.2, 12.4, 16.8, 14.2, 18.6, 20.4, 14.8],
+    pct2024: [31.2, 24.8, 26.4, 19.6, 13.8, 17.4, 14.8, 20.2, 22.1, 16.2],
+    annotation: 'Social inflation driving litigation up in all high-litigation states',
+  },
+
+  // Chart 6: Opioid Prescription Rate vs Avg Claim Duration (dual axis, annual)
+  opioidClaimRate: {
+    years: ['2015','2016','2017','2018','2019','2020','2021','2022','2023','2024'],
+    claimsWithOpioidsPct: [62.4, 61.8, 60.2, 55.4, 48.6, 42.4, 38.2, 34.8, 31.4, 28.6],
+    avgDurationDays: [84, 86, 92, 88, 78, 72, 66, 61, 58, 54],
+    annotation: 'Opioid stewardship reducing both prescription rate and claim duration',
+  },
 }
 
 /* ============================================================
@@ -481,6 +592,22 @@ export const healthData = {
       { year: '2020', label: 'COVID — delayed care dip' },
       { year: '2021', label: 'Pent-up demand surge' },
     ],
+  },
+
+  // Chart 5: Mental Health Claims Index by Category 2019–2024 (multi-line)
+  mentalHealthClaims: {
+    years: ['2019','2020','2021','2022','2023','2024'],
+    anxiety:    [100, 148, 138, 122, 118, 122],
+    depression: [100, 152, 141, 122, 115, 121],
+    substance:  [100, 114, 135, 146, 141, 148],
+    annotation: 'COVID spike for anxiety/depression normalising; substance use accelerating',
+  },
+
+  // Chart 6: Excess Mortality vs Expected — % deviation (bar, annual)
+  excessMortality: {
+    years: ['2019','2020','2021','2022','2023','2024','2025'],
+    deviation: [0.2, 8.4, 12.8, 7.2, 3.4, 2.1, 1.8],
+    annotation: 'COVID tail persists — still +1.8% above expected mortality in 2025',
   },
 }
 

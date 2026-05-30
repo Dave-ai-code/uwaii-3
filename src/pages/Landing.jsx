@@ -1,47 +1,205 @@
+import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Logo, Icon, Tag, Insight, Confidence, Source } from '../components/ui/index.jsx'
 import { SparkLine } from '../components/charts/index.jsx'
-import { travelData } from '../data/chartData.js'
+import { travelData, motorData, cyberData, propertyData, marineData, cropData, healthData, workersCompData } from '../data/chartData.js'
 
-/* ---- Jet fuel sparkline data (last 12 points of 24-month series) ---- */
-const jetFuelSpark = travelData.jetFuelVsAirfare.jetFuelIndex.slice(-12)
+/* ---- Rotating insight definitions ---- */
+const INSIGHTS = [
+  {
+    lob: 'Travel', country: 'US', time: '2h ago',
+    headline: <>Middle-East tension pushes jet&nbsp;fuel <span style={{ color: 'var(--up)' }}>+8%</span> this week</>,
+    spark: travelData.jetFuelVsAirfare.jetFuelIndex.slice(-12),
+    sparkColor: '#C0362F',
+    tags: [['up','trip-cost'],['up','cancel freq'],['down','travel demand']],
+    insight: 'Higher airfares dampen US outbound trips, lowering exposure, but raise per-trip cancellation costs. Watch advisory levels on affected routes.',
+    confidence: 'High', sources: ['Reuters','EIA','State Dept'],
+  },
+  {
+    lob: 'Motor', country: 'US', time: '3h ago',
+    headline: <>WTI crude at <span style={{ color: 'var(--down)' }}>$68/barrel</span> — 90-day frequency signal</>,
+    spark: motorData.fuelVsFrequency.fuelPrice.slice(-12),
+    sparkColor: '#2A4DDB',
+    tags: [['down','fuel cost'],['up','miles driven'],['up','claim freq']],
+    insight: 'Gas prices follow crude in 2–3 weeks. Miles driven expected +3–4% by Q3 — lagged frequency uptick likely within 90 days. Review Q3 loss projections.',
+    confidence: 'High', sources: ['EIA','FHWA','BLS'],
+  },
+  {
+    lob: 'Cyber', country: 'Global', time: '1h ago',
+    headline: <>CISA: <span style={{ color: 'var(--up)' }}>12 critical</span> active vulnerability alerts — ransomware risk elevated</>,
+    spark: [2468,2484,2502,2522,2544,2568,2594,2622,2652,2684,2718,2847],
+    sparkColor: '#C0362F',
+    tags: [['up','ransomware freq'],['up','severity'],['watch','manufacturing']],
+    insight: 'Critical CVEs typically weaponised in 14–21 days. Manufacturing and healthcare are most exposed this cycle. Underwriters should flag vulnerable-industry concentrations.',
+    confidence: 'High', sources: ['CISA','Mandiant'],
+  },
+  {
+    lob: 'Property', country: 'US', time: '5h ago',
+    headline: <>NOAA: 2025 Atlantic hurricane season forecast <span style={{ color: 'var(--up)' }}>extremely active</span></>,
+    spark: propertyData.catLossesAnnual.lossesB.slice(-12),
+    sparkColor: '#C0362F',
+    tags: [['up','CAT frequency'],['up','Gulf Coast acc'],['watch','ITV adequacy']],
+    insight: '17–25 named storms forecast. Construction costs up 42% since 2019 — ITV adequacy gap has widened significantly. Gulf Coast accumulations need urgent review.',
+    confidence: 'High', sources: ['NOAA','Swiss Re'],
+  },
+  {
+    lob: 'Marine', country: 'Global', time: '4h ago',
+    headline: <>Red Sea at <span style={{ color: 'var(--up)' }}>34% normal</span> volume — Cape diversion week 18</>,
+    spark: marineData.redSeaTraffic.volumeNormal,
+    sparkColor: '#C0362F',
+    tags: [['up','spoilage claims'],['up','war risk prem'],['up','voyage ext']],
+    insight: '67% of container traffic still diverting via Cape of Good Hope, adding 14 days. Spoilage and delay claims persisting. War risk premiums up 87% since Q4 2023.',
+    confidence: 'High', sources: ['Drewry','Lloyd\'s','IMO'],
+  },
+  {
+    lob: 'Crop', country: 'US', time: '6h ago',
+    headline: <>USDA: <span style={{ color: 'var(--up)' }}>47%</span> of US Corn Belt in severe drought</>,
+    spark: cropData.droughtCoverage.droughtPct.slice(-12),
+    sparkColor: '#E5A020',
+    tags: [['up','yield deviation'],['up','indemnity risk'],['watch','Q3 pricing']],
+    insight: 'Corn conditions deteriorating. Indemnity pressure building for Q3. Commodity price volatility elevated — wheat prices sensitive to any Ukraine corridor disruption.',
+    confidence: 'Medium', sources: ['USDA','NOAA Drought Monitor'],
+  },
+  {
+    lob: 'Health', country: 'US', time: '8h ago',
+    headline: <>GLP-1 prescriptions up <span style={{ color: 'var(--down)' }}>+387%</span> YoY — first obesity decline since 2010</>,
+    spark: healthData.glp1Prescriptions.indexVol,
+    sparkColor: '#1E8A3C',
+    tags: [['down','long-term morbidity'],['up','drug cost'],['watch','benefit design']],
+    insight: 'Short-term: specialty drug cost pressure significant. Long-term: first sustained obesity decline creates meaningful life/health morbidity improvement signal for pricing.',
+    confidence: 'High', sources: ['FDA','CMS','IQVIA'],
+  },
+  {
+    lob: 'Workers Comp', country: 'US', time: '7h ago',
+    headline: <>US construction employment hits <span style={{ color: 'var(--up)' }}>20-year high</span> — exposure growing</>,
+    spark: workersCompData.employmentBySector.construction.map(v => v * 10),
+    sparkColor: '#E5A020',
+    tags: [['up','frequency exposure'],['up','severity'],['watch','claims volume']],
+    insight: 'Highest-risk WC class growing fastest. Medical CPI at +6.8% YoY already pressuring severity above plan. Construction frequency correlates strongly with activity level.',
+    confidence: 'High', sources: ['BLS','OSHA'],
+  },
+]
 
 /* ============================================================
-   Live Insight Card (right side of hero)
+   Live Insight Card — rotating carousel
    ============================================================ */
 function LiveInsightCard() {
+  const [idx, setIdx] = useState(0)
+  const [visible, setVisible] = useState(true)
+  const timerRef = useRef(null)
+  const pausedRef = useRef(false)
+
+  function goTo(next) {
+    setVisible(false)
+    setTimeout(() => {
+      setIdx(next)
+      setVisible(true)
+    }, 220)
+  }
+
+  function startTimer() {
+    timerRef.current = setInterval(() => {
+      if (!pausedRef.current) {
+        goTo((idx + 1 + INSIGHTS.length) % INSIGHTS.length)
+      }
+    }, 5000)
+  }
+
+  useEffect(() => {
+    timerRef.current = setInterval(() => {
+      if (!pausedRef.current) {
+        setVisible(false)
+        setTimeout(() => {
+          setIdx(prev => {
+            const next = (prev + 1) % INSIGHTS.length
+            return next
+          })
+          setVisible(true)
+        }, 220)
+      }
+    }, 5000)
+    return () => clearInterval(timerRef.current)
+  }, [])
+
+  const ins = INSIGHTS[idx]
+
+  function prev() {
+    clearInterval(timerRef.current)
+    goTo((idx - 1 + INSIGHTS.length) % INSIGHTS.length)
+  }
+  function next() {
+    clearInterval(timerRef.current)
+    goTo((idx + 1) % INSIGHTS.length)
+  }
+
   return (
-    <div className="lp-hero-card rise d2" style={{ padding: 20, width: '100%' }}>
+    <div
+      className="lp-hero-card rise d2"
+      style={{ padding: 20, width: '100%' }}
+      onMouseEnter={() => { pausedRef.current = true }}
+      onMouseLeave={() => { pausedRef.current = false }}
+    >
+      {/* Header row */}
       <div className="row ac jb" style={{ marginBottom: 12 }}>
         <span className="row ac g8">
-          <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--up)', boxShadow: '0 0 0 3px var(--up-bg)' }} />
+          <span style={{ width: 7, height: 7, borderRadius: '50%', background: 'var(--up)', boxShadow: '0 0 0 3px var(--up-bg)', flexShrink: 0 }} />
           <span className="eyebrow" style={{ color: 'var(--ink-2)' }}>Live insight</span>
         </span>
-        <span className="src">Travel · US <span className="dot" /> 2h ago</span>
+        <span className="src">{ins.lob} · {ins.country} <span className="dot" /> {ins.time}</span>
       </div>
 
-      <h3 className="serif" style={{ fontSize: 22, lineHeight: 1.18, fontWeight: 500, marginBottom: 12 }}>
-        Middle-East tension pushes jet&nbsp;fuel <span style={{ color: 'var(--up)' }}>+8%</span> this week
-      </h3>
+      {/* Animated content */}
+      <div style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.2s ease' }}>
+        <h3 className="serif" style={{ fontSize: 21, lineHeight: 1.18, fontWeight: 500, marginBottom: 12, minHeight: 52 }}>
+          {ins.headline}
+        </h3>
 
-      <div className="row wrap g6" style={{ marginBottom: 14 }}>
-        <Tag dir="up">trip-cost</Tag>
-        <Tag dir="up">cancel freq</Tag>
-        <Tag dir="down">travel demand</Tag>
+        <div className="row wrap g6" style={{ marginBottom: 14 }}>
+          {ins.tags.map(([dir, label]) => <Tag key={label} dir={dir}>{label}</Tag>)}
+        </div>
+
+        <div className="card flat q" style={{ padding: '8px 12px', marginBottom: 14 }}>
+          <SparkLine data={ins.spark} color={ins.sparkColor} height={44} />
+        </div>
+
+        <Insight>{ins.insight}</Insight>
+
+        <div className="row ac jb" style={{ marginTop: 14 }}>
+          <Confidence level={ins.confidence} />
+          <Source items={ins.sources} />
+        </div>
       </div>
 
-      <div className="card flat q" style={{ padding: '8px 12px', marginBottom: 14 }}>
-        <SparkLine data={jetFuelSpark} color="#C0362F" height={44} />
-      </div>
-
-      <Insight>
-        Higher airfares dampen US outbound trips, lowering exposure, but raise per-trip cancellation
-        costs. Watch advisory levels on affected routes.
-      </Insight>
-
-      <div className="row ac jb" style={{ marginTop: 14 }}>
-        <Confidence level="High" />
-        <Source items={['Reuters', 'EIA', 'State Dept']} />
+      {/* Navigation */}
+      <div className="row ac jb" style={{ marginTop: 16 }}>
+        <div className="row ac g6">
+          {INSIGHTS.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => { clearInterval(timerRef.current); goTo(i) }}
+              style={{
+                width: i === idx ? 18 : 6, height: 6,
+                borderRadius: 3, border: 'none', padding: 0, cursor: 'pointer',
+                background: i === idx ? 'var(--brand)' : 'var(--line-strong)',
+                transition: 'width 0.25s, background 0.2s',
+              }}
+            />
+          ))}
+        </div>
+        <div className="row ac g8">
+          <button
+            onClick={prev}
+            style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid var(--line)', background: 'var(--surface)', cursor: 'pointer', display:'flex', alignItems:'center', justifyContent:'center' }}
+          >
+            <Icon name="chevLeft" size={13} />
+          </button>
+          <button
+            onClick={next}
+            style={{ width: 28, height: 28, borderRadius: 6, border: '1px solid var(--line)', background: 'var(--surface)', cursor: 'pointer', display:'flex', alignItems:'center', justifyContent:'center' }}
+          >
+            <Icon name="chevron" size={13} />
+          </button>
+        </div>
       </div>
     </div>
   )

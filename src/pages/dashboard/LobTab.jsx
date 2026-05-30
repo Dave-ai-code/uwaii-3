@@ -16,6 +16,7 @@ import {
   motorData, travelData, cyberData, propertyData,
   cropData, marineData, workersCompData, healthData,
   getMotorFuelData, getPropertyPerilData,
+  MONTHS_24,
 } from '../../data/chartData'
 
 const H = 190
@@ -151,6 +152,40 @@ function motorCharts(country = 'us') {
         />
       ),
     },
+    {
+      title: 'EV Fleet Share vs Repair Cost Index',
+      subtitle: motorData.evAdoptionVsRepair.annotation,
+      node: (
+        <UWDualLineChart
+          data={motorData.evAdoptionVsRepair.years.map((x, i) => ({
+            x,
+            ev: motorData.evAdoptionVsRepair.evSharePct[i],
+            rc: motorData.evAdoptionVsRepair.repairCostIdx[i],
+          }))}
+          xKey="x"
+          leftLine={{ key: 'ev', name: 'EV Share %',      color: 'down' }}
+          rightLine={{ key: 'rc', name: 'Repair Cost Idx', color: 'up' }}
+          height={H}
+        />
+      ),
+    },
+    {
+      title: 'NHTSA Safety Recalls — Campaigns & Vehicles Affected',
+      subtitle: motorData.nhtsaRecalls.annotation,
+      node: (
+        <UWDualLineChart
+          data={motorData.nhtsaRecalls.years.map((x, i) => ({
+            x,
+            camp: motorData.nhtsaRecalls.campaigns[i],
+            veh: motorData.nhtsaRecalls.vehiclesAffectedM[i],
+          }))}
+          xKey="x"
+          leftLine={{ key: 'camp', name: 'Campaigns',       color: 'warn' }}
+          rightLine={{ key: 'veh',  name: 'Vehicles Aff (M)', color: 'up' }}
+          height={H}
+        />
+      ),
+    },
   ]
 }
 
@@ -224,6 +259,42 @@ function travelCharts(country = 'us') {
         />
       ),
     },
+    {
+      title: 'Medical Evacuation Incidents by Region',
+      subtitle: 'Incidents per 10k travellers — cost driver for travel medical',
+      node: (
+        <UWBarChart
+          data={travelData.medEvacByRegion.regions.map((x, i) => ({
+            x, rate: travelData.medEvacByRegion.incidentsPer10k[i],
+          }))}
+          xKey="x"
+          bars={[{ key: 'rate', name: '/10k travellers', color: 'warn' }]}
+          layout="vertical"
+          height={H}
+        />
+      ),
+    },
+    {
+      title: 'Claims Index by Trip Type',
+      subtitle: 'Leisure dominates volume — adventure highest severity per claim',
+      node: (
+        <UWLineChart
+          data={travelData.claimsByTripType.months.map((x, i) => ({
+            x,
+            leisure:   travelData.claimsByTripType.leisure[i],
+            business:  travelData.claimsByTripType.business[i],
+            adventure: travelData.claimsByTripType.adventure[i],
+          }))}
+          xKey="x"
+          lines={[
+            { key: 'leisure',   name: 'Leisure',   color: 'brand' },
+            { key: 'business',  name: 'Business',  color: 'warn' },
+            { key: 'adventure', name: 'Adventure', color: 'up' },
+          ]}
+          height={H}
+        />
+      ),
+    },
   ]
 }
 
@@ -268,6 +339,44 @@ function cyberCharts(country = 'us') {
           data={bc.years.map((x, i) => ({ x, cost: bc.avgCostM[i] }))}
           xKey="x"
           lines={[{ key: 'cost', name: 'Avg Cost $M', color: 'up' }]}
+          height={H}
+        />
+      ),
+    },
+    {
+      title: 'Average Ransom Demand 2019–2025',
+      subtitle: cyberData.ransomDemandTrend.annotation,
+      node: (
+        <UWLineChart
+          data={cyberData.ransomDemandTrend.years.map((x, i) => ({
+            x,
+            avg:    cyberData.ransomDemandTrend.avgDemandK[i],
+            median: cyberData.ransomDemandTrend.medianDemandK[i],
+          }))}
+          xKey="x"
+          lines={[
+            { key: 'avg',    name: 'Avg Demand $K',    color: 'up' },
+            { key: 'median', name: 'Median Demand $K', color: 'warn' },
+          ]}
+          height={H}
+        />
+      ),
+    },
+    {
+      title: 'Mean Time to Detect & Contain (Days)',
+      subtitle: cyberData.dwellTime.annotation,
+      node: (
+        <UWLineChart
+          data={cyberData.dwellTime.years.map((x, i) => ({
+            x,
+            detect:  cyberData.dwellTime.daysToDetect[i],
+            contain: cyberData.dwellTime.daysToContain[i],
+          }))}
+          xKey="x"
+          lines={[
+            { key: 'detect',  name: 'Days to Detect',  color: 'warn' },
+            { key: 'contain', name: 'Days to Contain', color: 'up' },
+          ]}
           height={H}
         />
       ),
@@ -347,6 +456,40 @@ function propertyCharts(country = 'us') {
         />
       ),
     },
+    {
+      title: 'Protection Gap — Insured vs Total Economic Losses',
+      subtitle: propertyData.protectionGap.annotation,
+      node: (
+        <UWGroupedBarChart
+          data={propertyData.protectionGap.years.map((x, i) => ({
+            x,
+            total:   propertyData.protectionGap.totalEconB[i],
+            insured: propertyData.protectionGap.insuredB[i],
+          }))}
+          xKey="x"
+          bars={[
+            { key: 'total',   name: 'Total Economic $B', color: 'ink4' },
+            { key: 'insured', name: 'Insured $B',         color: 'brand' },
+          ]}
+          height={H}
+        />
+      ),
+    },
+    {
+      title: 'Reinsurance Rate Index 2017–2025',
+      subtitle: propertyData.reinsRateIndex.annotation,
+      node: (
+        <UWLineChart
+          data={propertyData.reinsRateIndex.years.map((x, i) => ({
+            x, idx: propertyData.reinsRateIndex.index[i],
+          }))}
+          xKey="x"
+          lines={[{ key: 'idx', name: 'Reins Rate Index', color: 'brand' }]}
+          referenceLine={100}
+          height={H}
+        />
+      ),
+    },
   ]
 }
 
@@ -409,6 +552,36 @@ function cropCharts(country = 'us') {
         />
       ),
     },
+    {
+      title: 'ENSO Index vs Crop Yield Deviation',
+      subtitle: cropData.ensoImpact.annotation,
+      node: (
+        <UWDualLineChart
+          data={cropData.ensoImpact.years.map((x, i) => ({
+            x,
+            enso:  cropData.ensoImpact.ensoIndex[i],
+            yield: cropData.ensoImpact.yieldDeviation[i],
+          }))}
+          xKey="x"
+          leftLine={{ key: 'enso',  name: 'ENSO Index',  color: 'brand' }}
+          rightLine={{ key: 'yield', name: 'Yield Dev %', color: 'up' }}
+          height={H}
+        />
+      ),
+    },
+    {
+      title: 'Fertilizer Price Index 2024–2026',
+      subtitle: cropData.fertilizerIndex.annotation,
+      node: (
+        <UWAreaChart
+          data={MONTHS_24.map((x, i) => ({ x, idx: cropData.fertilizerIndex.index[i] }))}
+          xKey="x"
+          areas={[{ key: 'idx', name: 'Fertilizer Idx', color: 'warn' }]}
+          referenceLine={100}
+          height={H}
+        />
+      ),
+    },
   ]
 }
 
@@ -463,6 +636,38 @@ function marineCharts(country = 'us') {
           xKey="x"
           bars={[{ key: 'n', name: 'Incidents', color: 'brand' }]}
           layout="vertical"
+          height={H}
+        />
+      ),
+    },
+    {
+      title: 'War Risk Premium Index — Quarterly',
+      subtitle: marineData.warRiskPremium.annotation,
+      node: (
+        <UWAreaChart
+          data={marineData.warRiskPremium.quarters.map((x, i) => ({
+            x, idx: marineData.warRiskPremium.index[i],
+          }))}
+          xKey="x"
+          areas={[{ key: 'idx', name: 'War Risk Index', color: 'up' }]}
+          referenceLine={100}
+          height={H}
+        />
+      ),
+    },
+    {
+      title: 'Vessel Total Loss Incidents & Avg Hull Value',
+      subtitle: marineData.vesselTotalLoss.annotation,
+      node: (
+        <UWDualLineChart
+          data={marineData.vesselTotalLoss.years.map((x, i) => ({
+            x,
+            inc: marineData.vesselTotalLoss.incidents[i],
+            val: marineData.vesselTotalLoss.avgHullValueM[i],
+          }))}
+          xKey="x"
+          leftLine={{ key: 'inc', name: 'Losses',         color: 'up' }}
+          rightLine={{ key: 'val', name: 'Avg Hull $M', color: 'warn' }}
           height={H}
         />
       ),
@@ -533,6 +738,42 @@ function workerscompCharts(country = 'us') {
         />
       ),
     },
+    {
+      title: 'WC Litigation Rate by State — 2022 vs 2024',
+      subtitle: workersCompData.litigationByState.annotation,
+      node: (
+        <UWGroupedBarChart
+          data={workersCompData.litigationByState.states.map((x, i) => ({
+            x,
+            y22: workersCompData.litigationByState.pct2022[i],
+            y24: workersCompData.litigationByState.pct2024[i],
+          }))}
+          xKey="x"
+          bars={[
+            { key: 'y22', name: '2022 %', color: 'ink4' },
+            { key: 'y24', name: '2024 %', color: 'up' },
+          ]}
+          height={H}
+        />
+      ),
+    },
+    {
+      title: 'Opioid Prescription Rate vs Claim Duration',
+      subtitle: workersCompData.opioidClaimRate.annotation,
+      node: (
+        <UWDualLineChart
+          data={workersCompData.opioidClaimRate.years.map((x, i) => ({
+            x,
+            opioid:   workersCompData.opioidClaimRate.claimsWithOpioidsPct[i],
+            duration: workersCompData.opioidClaimRate.avgDurationDays[i],
+          }))}
+          xKey="x"
+          leftLine={{ key: 'opioid',   name: 'Claims w/ Opioids %', color: 'warn' }}
+          rightLine={{ key: 'duration', name: 'Avg Duration (days)',  color: 'brand' }}
+          height={H}
+        />
+      ),
+    },
   ]
 }
 
@@ -593,6 +834,42 @@ function healthCharts(country = 'us') {
           xKey="x"
           bars={[{ key: 'mlr', name: 'MLR %', color: 'brand' }]}
           referenceLine={88}
+          height={H}
+        />
+      ),
+    },
+    {
+      title: 'Mental Health Claims Index by Category',
+      subtitle: healthData.mentalHealthClaims.annotation,
+      node: (
+        <UWLineChart
+          data={healthData.mentalHealthClaims.years.map((x, i) => ({
+            x,
+            anxiety:    healthData.mentalHealthClaims.anxiety[i],
+            depression: healthData.mentalHealthClaims.depression[i],
+            substance:  healthData.mentalHealthClaims.substance[i],
+          }))}
+          xKey="x"
+          lines={[
+            { key: 'anxiety',    name: 'Anxiety',    color: 'warn' },
+            { key: 'depression', name: 'Depression', color: 'up' },
+            { key: 'substance',  name: 'Substance',  color: 'brand' },
+          ]}
+          height={H}
+        />
+      ),
+    },
+    {
+      title: 'Excess Mortality — % Above Expected',
+      subtitle: healthData.excessMortality.annotation,
+      node: (
+        <UWBarChart
+          data={healthData.excessMortality.years.map((x, i) => ({
+            x, dev: healthData.excessMortality.deviation[i],
+          }))}
+          xKey="x"
+          bars={[{ key: 'dev', name: '% Above Expected', color: 'up' }]}
+          referenceLine={0}
           height={H}
         />
       ),
@@ -677,7 +954,7 @@ export default function LobTab({ lob, country, role }) {
         {stats.map(s => <StatCard key={s.key} {...s} />)}
       </div>
 
-      {/* ---- 4 charts in 2×2 grid ---- */}
+      {/* ---- charts in 2-col grid ---- */}
       {charts.length > 0 && (
         <>
           <Eyebrow>Analytics</Eyebrow>
