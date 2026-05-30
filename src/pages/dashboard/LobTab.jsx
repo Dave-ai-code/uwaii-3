@@ -946,7 +946,7 @@ export default function LobTab({ lob, country, role }) {
 
       {/* ---- 6 stat cards ---- */}
       <Eyebrow>Key Indicators</Eyebrow>
-      <div style={{
+      <div className="stat-auto-grid" style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(190px, 1fr))',
         gap: 12, marginBottom: 28,
@@ -958,7 +958,7 @@ export default function LobTab({ lob, country, role }) {
       {charts.length > 0 && (
         <>
           <Eyebrow>Analytics</Eyebrow>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 28 }}>
+          <div className="charts-grid">
             {charts.map((c, i) => <ChartCard key={i} {...c} />)}
           </div>
         </>

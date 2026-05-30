@@ -356,7 +356,7 @@ export default function Overview({ selectedLobs, activeCountry, role }) {
 
       {/* ---- 6 stat cards ---- */}
       <Eyebrow>Key Indicators</Eyebrow>
-      <div style={{
+      <div className="stat-auto-grid" style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fill, minmax(190px, 1fr))',
         gap: 12, marginBottom: 28,
@@ -377,7 +377,7 @@ export default function Overview({ selectedLobs, activeCountry, role }) {
       )}
 
       {/* ---- Two-column: news + rate/LR table ---- */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1.8fr 1fr', gap: 20, marginBottom: 28 }}>
+      <div className="ov-2col" style={{ display: 'grid', gridTemplateColumns: '1.8fr 1fr', gap: 20, marginBottom: 28 }}>
         <div>
           <Eyebrow>Top Signals</Eyebrow>
           <div className="card" style={{ padding: 0, overflow: 'hidden' }}>
@@ -394,7 +394,7 @@ export default function Overview({ selectedLobs, activeCountry, role }) {
       {charts.length > 0 && (
         <>
           <Eyebrow>Key Trends</Eyebrow>
-          <div style={{
+          <div className="ov-charts" style={{
             display: 'grid',
             gridTemplateColumns: `repeat(${charts.length}, 1fr)`,
             gap: 16, marginBottom: 28,

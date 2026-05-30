@@ -304,3 +304,100 @@ p { margin: 0; }
 .scrollx::-webkit-scrollbar { height: 8px; }
 .scrollx::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 4px; }
 .nowrap { white-space: nowrap; }
+
+/* ---------- responsive layout classes (desktop defaults) ---------- */
+.lp-hero-grid {
+  max-width: var(--maxw); margin: 0 auto;
+  display: grid; grid-template-columns: 1.05fr .95fr;
+  gap: 54px; padding: 62px 32px; align-items: center;
+}
+.lp-3col    { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.lp-4col    { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.lp-who-outer  { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+.lp-roles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.builder-grid  { display: grid; grid-template-columns: 1fr 340px; gap: 28px; align-items: start; }
+.lob-grid      { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.role-grid     { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+.charts-grid   { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px; }
+.step-label    { display: inline; }
+.topbar-time   { display: block; font-family: var(--mono); font-size: 11px; color: var(--ink-4); white-space: nowrap; }
+.lp-hero-h1    { font-size: 56px; }
+.belief-text   { }
+
+/* ---------- mobile bottom navigation ---------- */
+.mobile-nav {
+  display: none;
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  height: 56px; background: var(--surface); border-top: 1px solid var(--line);
+  align-items: stretch; overflow-x: auto; -webkit-overflow-scrolling: touch;
+  box-shadow: 0 -2px 10px rgba(16,21,33,.09);
+}
+.mobile-nav::-webkit-scrollbar { display: none; }
+.mobile-nav-item {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;
+  flex-shrink: 0; min-width: 60px; padding: 6px 10px; cursor: pointer; transition: .12s;
+  color: var(--ink-4); font-family: var(--mono); font-size: 9px; letter-spacing: .04em;
+  text-transform: uppercase; border: none; background: none;
+}
+.mobile-nav-item.on { color: var(--brand-ink); }
+.mobile-nav-item.on svg { color: var(--brand); }
+
+/* ---------- MOBILE ≤768px ---------- */
+@media (max-width: 768px) {
+  /* App chrome */
+  .app { grid-template-columns: 1fr; }
+  .side { display: none; }
+  .page { padding: 14px 14px 72px; }
+  .topbar { padding: 0 14px; height: 54px; gap: 8px; }
+  .topbar-time { display: none; }
+
+  /* Landing nav */
+  .lp-nav { padding: 0 16px; height: 58px; gap: 14px; }
+  .lp-nav-links { display: none; }
+  .lp-section { padding-left: 16px !important; padding-right: 16px !important; }
+
+  /* Landing hero */
+  .lp-hero-grid { grid-template-columns: 1fr; gap: 28px; padding: 32px 16px 40px; }
+  .lp-hero-h1   { font-size: 36px !important; }
+
+  /* Landing content grids */
+  .lp-3col    { grid-template-columns: 1fr; gap: 14px; }
+  .lp-4col    { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .lp-who-outer  { grid-template-columns: 1fr; }
+  .lp-roles-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+
+  /* Hide mini dashboard preview on mobile */
+  .lp-mini-dash { display: none; }
+
+  /* Belief strip */
+  .belief-text { font-size: 26px !important; line-height: 1.3 !important; }
+
+  /* Builder */
+  .builder-grid { grid-template-columns: 1fr; }
+  .builder-preview { display: none; }
+  .lob-grid  { grid-template-columns: 1fr; gap: 10px; }
+  .role-grid { grid-template-columns: 1fr; gap: 10px; }
+  .step-label { display: none; }
+
+  /* Dashboard charts */
+  .charts-grid { grid-template-columns: 1fr; gap: 14px; }
+
+  /* Overview grids */
+  .ov-2col   { grid-template-columns: 1fr !important; }
+  .ov-charts { grid-template-columns: 1fr !important; }
+
+  /* Mobile nav visible */
+  .mobile-nav { display: flex; }
+
+  /* Builder topbar compact */
+  .builder-topbar-step { display: none; }
+
+  /* Topbar country switcher — hide country name, show flag only */
+  .country-flag-name { display: none; }
+
+  /* Stat card smaller font on mobile */
+  .stat .v { font-size: 20px; }
+
+  /* Stat grid: force 2-col on mobile */
+  .stat-auto-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}

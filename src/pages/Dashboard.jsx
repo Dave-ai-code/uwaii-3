@@ -8,6 +8,32 @@ import Overview from './dashboard/Overview'
 import LobTab from './dashboard/LobTab'
 import NewsPage from './dashboard/NewsPage'
 
+function MobileNav({ activeTab, setActiveTab, selectedLobs }) {
+  const items = [
+    { id: 'overview', icon: 'overview', label: 'Overview' },
+    { id: 'signals',  icon: 'news',     label: 'Signals'  },
+    ...selectedLobs.slice(0, 4).map(id => ({
+      id,
+      icon: id,
+      label: (LOB_CONFIG[id]?.label ?? id).split('/')[0].trim(),
+    })),
+  ]
+  return (
+    <nav className="mobile-nav">
+      {items.map(item => (
+        <button
+          key={item.id}
+          className={`mobile-nav-item${activeTab === item.id ? ' on' : ''}`}
+          onClick={() => setActiveTab(item.id)}
+        >
+          <Icon name={item.icon} size={19} sw={1.8} />
+          <span>{item.label}</span>
+        </button>
+      ))}
+    </nav>
+  )
+}
+
 function getSelections() {
   try { return JSON.parse(localStorage.getItem('uwaii_selections') || '{}') }
   catch { return {} }
@@ -119,7 +145,7 @@ export default function Dashboard() {
                     onClick={() => setActiveCountry(code)}
                   >
                     <span style={{ fontSize: 15 }}>{c.flag}</span>
-                    <span>{c.name}</span>
+                    <span className="country-flag-name">{c.name}</span>
                   </button>
                 )
               })}
@@ -138,7 +164,7 @@ export default function Dashboard() {
             </select>
           )}
 
-          <span style={{ fontFamily: 'var(--mono)', fontSize: 11, color: 'var(--ink-4)', whiteSpace: 'nowrap' }}>
+          <span className="topbar-time">
             Updated {timeStr}
           </span>
         </header>
@@ -162,6 +188,8 @@ export default function Dashboard() {
             />
           )}
         </main>
+
+        <MobileNav activeTab={activeTab} setActiveTab={setActiveTab} selectedLobs={selectedLobs} />
       </div>
     </div>
   )

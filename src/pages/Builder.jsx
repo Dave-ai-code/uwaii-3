@@ -41,7 +41,7 @@ function StepDots({ current }) {
             }}>
               {current > s.n ? '✓' : s.n}
             </span>
-            <span style={{ display: 'inline' }}>{s.label}</span>
+            <span className="step-label">{s.label}</span>
           </span>
           {i < STEPS.length - 1 && (
             <Icon name="chevron" size={12} style={{ color: 'var(--line-strong)', margin: '0 2px' }} />
@@ -347,7 +347,7 @@ export default function Builder() {
         <StepDots current={step} />
 
         <span className="row ac g10">
-          <span className="mono muted" style={{ fontSize: 11, letterSpacing: '.06em' }}>
+          <span className="mono muted builder-topbar-step" style={{ fontSize: 11, letterSpacing: '.06em' }}>
             STEP {step} OF 3
           </span>
           <button className="btn btn-ghost btn-sm" onClick={() => navigate('/')}>Cancel</button>
@@ -356,7 +356,7 @@ export default function Builder() {
 
       {/* ---- Main content ---- */}
       <div className="page" style={{ maxWidth: 1100 }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: 28, alignItems: 'start' }}>
+        <div className="builder-grid">
 
           {/* ---- Left: current step ---- */}
           <div className="rise">
@@ -377,7 +377,7 @@ export default function Builder() {
                 STEP 1 — Lines of Business
                 ========================================= */}
             {step === 1 && (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
+              <div className="lob-grid">
                 {LOB_IDS.map(id => {
                   const lob = LOB_CONFIG[id]
                   const sel = selectedLobs.has(id)
@@ -569,7 +569,7 @@ export default function Builder() {
                 STEP 3 — Role
                 ========================================= */}
             {step === 3 && (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 12 }}>
+              <div className="role-grid">
                 {ROLES.map(r => {
                   const sel = selectedRole === r.id
                   return (
@@ -666,12 +666,14 @@ export default function Builder() {
             </div>
           </div>
 
-          {/* ---- Right: Live preview (sticky) ---- */}
-          <LivePreview
-            selectedLobs={selectedLobs}
-            selectedCountries={selectedCountryObjs}
-            selectedRole={selectedRole}
-          />
+          {/* ---- Right: Live preview (sticky, hidden on mobile) ---- */}
+          <div className="builder-preview">
+            <LivePreview
+              selectedLobs={selectedLobs}
+              selectedCountries={selectedCountryObjs}
+              selectedRole={selectedRole}
+            />
+          </div>
         </div>
       </div>
     </div>

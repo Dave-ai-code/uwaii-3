@@ -296,7 +296,7 @@ export default function Landing() {
         <div className="lp-nav">
           <Logo />
           <span className="grow" />
-          <div className="row ac g24" style={{ marginRight: 8 }}>
+          <div className="row ac g24 lp-nav-links" style={{ marginRight: 8 }}>
             {['Product', 'Signals', 'About'].map(l => (
               <span key={l} className="muted2" style={{ fontWeight: 500, fontSize: 14, cursor: 'pointer' }}>{l}</span>
             ))}
@@ -308,17 +308,14 @@ export default function Landing() {
 
       {/* ---- Hero ---- */}
       <div className="dotgrid" style={{ borderBottom: '1px solid var(--line)' }}>
-        <div className="lp-section" style={{
-          display: 'grid', gridTemplateColumns: '1.05fr .95fr', gap: 54,
-          alignItems: 'center', padding: '62px 32px',
-        }}>
+        <div className="lp-hero-grid">
           <div className="rise d1">
             <span className="kicker">
               <span style={{ fontFamily: 'var(--mono)' }}>UW</span>
               · Underwriting AI Intelligence
             </span>
-            <h1 className="serif" style={{
-              fontSize: 56, lineHeight: 1.03, fontWeight: 500,
+            <h1 className="serif lp-hero-h1" style={{
+              lineHeight: 1.03, fontWeight: 500,
               letterSpacing: '-.02em', margin: '20px 0 18px',
             }}>
               Most insurers look{' '}
@@ -357,7 +354,7 @@ export default function Landing() {
               weather patterns, disease outbreaks — arrive weeks or months earlier, from outside.
             </p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+          <div className="lp-3col">
             {[
               { icon: '📉', title: 'Loss ratios shift before you see it', body: 'Fuel price drops drive miles-traveled up in 60 days. Cyber incidents follow vulnerability disclosures by 2–3 weeks. The signal is public — most underwriters never see it.' },
               { icon: '📰', title: 'News moves risk, but nobody quantifies it', body: 'A NOAA hurricane upgrade, a State Department advisory change, a USDA drought monitor reading — all have quantifiable impacts on specific LOBs that go unmeasured.' },
@@ -381,7 +378,7 @@ export default function Landing() {
             From the outside world to your book — daily
           </h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
+        <div className="lp-4col">
           {[
             ['01', 'Select Lines of Business', 'Choose from Motor, Travel, Cyber, Property, Crop, Marine, Workers Comp, or Health. Multi-select for a full portfolio view.', 'sliders'],
             ['02', 'Select Your Geography', 'Pick specific countries — from the US and UK to Singapore and Brazil. Get data in local currency and context.', 'globe'],
@@ -406,7 +403,7 @@ export default function Landing() {
       </div>
 
       {/* ---- Product preview ---- */}
-      <div className="lp-section" style={{ padding: '40px 32px 56px' }}>
+      <div className="lp-section lp-mini-dash" style={{ padding: '40px 32px 56px' }}>
         <div className="row ac jb wrap g12" style={{ marginBottom: 18 }}>
           <div className="col g4">
             <span className="eyebrow">The product</span>
@@ -424,7 +421,7 @@ export default function Landing() {
       {/* ---- Belief strip ---- */}
       <div style={{ background: 'var(--ink)', color: '#fff' }}>
         <div className="lp-section" style={{ padding: '60px 32px', textAlign: 'center' }}>
-          <h2 className="serif" style={{
+          <h2 className="serif belief-text" style={{
             fontSize: 40, fontWeight: 400, lineHeight: 1.18,
             maxWidth: 840, margin: '0 auto', letterSpacing: '-.01em',
           }}>
@@ -439,13 +436,13 @@ export default function Landing() {
 
       {/* ---- Who it's for ---- */}
       <div className="lp-section" style={{ padding: '52px 32px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 40 }}>
+        <div className="lp-who-outer">
           <div>
             <span className="eyebrow">Built for the whole desk</span>
             <p className="muted2" style={{ fontSize: 14, marginTop: 8, marginBottom: 16, lineHeight: 1.5 }}>
               Every role on the insurance desk gets a different lens on the same external signals.
             </p>
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+            <div className="lp-roles-grid">
               {[
                 { role: 'Underwriter', desc: 'Spot pricing opportunities before competitors' },
                 { role: 'Actuary', desc: 'Stress-test loss projections with live external data' },
